@@ -228,16 +228,15 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </p>
           </div>
 
-          {/* Brewery worker photos - flowing collage */}
-          <div className="flex justify-center gap-3 md:gap-4 max-w-4xl mx-auto flex-wrap">
-            <img src="/images/Screenshot 2026-03-21 at 12.02.56 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-2 hover:rotate-0 transition-transform" />
-            <img src="/images/Screenshot 2026-03-21 at 12.08.36 AM.jpg" alt="Brewery team" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-1 hover:rotate-0 transition-transform mt-4" />
-            <img src="/images/Screenshot 2026-03-21 at 12.06.04 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-1 hover:rotate-0 transition-transform" />
-            <img src="/images/Screenshot 2026-03-21 at 12.09.45 AM.jpg" alt="Brewery worker with keg" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-2 hover:rotate-0 transition-transform mt-6" />
-            <img src="/images/Screenshot 2026-03-21 at 12.06.40 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-2 hover:rotate-0 transition-transform" />
-            <img src="/images/Screenshot 2026-03-21 at 12.11.40 AM.jpg" alt="Brewery team" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-1 hover:rotate-0 transition-transform mt-3" />
+          {/* Brewery worker photos - seamless collage */}
+          <div className="relative max-w-4xl mx-auto" style={{ height: "280px" }}>
+            <img src="/images/workers-1.jpg" alt="Brewery workers" className="absolute left-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
+            <img src="/images/workers-2.jpg" alt="Brewery workers" className="absolute left-32 top-8 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
+            <img src="/images/thankyou.jpg" alt="Brewery team" className="absolute left-1/2 -translate-x-1/2 top-0 w-48 h-56 object-cover rounded-2xl shadow-xl -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-20" />
+            <img src="/images/keg.jpg" alt="Brewery worker with keg" className="absolute right-32 top-6 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
+            <img src="/images/workers-3.jpg" alt="Brewery workers" className="absolute right-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
           </div>
-          <p className="text-center text-sm mt-4 font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>These are the people whose jobs are on the line.</p>
+          <p className="text-center text-sm mt-2 font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>These are the people whose jobs are on the line.</p>
 
         </div>
       </header>
