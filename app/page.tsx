@@ -32,6 +32,7 @@ export default function Home() {
   const [senderEmail, setSenderEmail] = useState("");
   const [senderAddress, setSenderAddress] = useState("");
   const [senderZip, setSenderZip] = useState("");
+  const [manualAddress, setManualAddress] = useState("");
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
@@ -80,6 +81,29 @@ export default function Home() {
       { enableHighAccuracy: true, timeout: 15000 }
     );
   }, [doLookup]);
+
+  const handleAddressLookup = useCallback(async () => {
+    if (!manualAddress.trim()) {
+      setError("Please enter your address.");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/lookup-address?address=${encodeURIComponent(manualAddress.trim())}`);
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || data.error || "Could not find that address.");
+        return;
+      }
+      setLookupData(data);
+      setStep("review");
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  }, [manualAddress]);
 
   const getRecipients = () => {
     if (!lookupData) return [];
@@ -236,7 +260,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/keg.jpg" alt="Brewery worker with keg" className="absolute right-32 top-6 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
             <img src="/images/workers-3.jpg" alt="Brewery workers" className="absolute right-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
           </div>
-          <p className="text-center text-sm mt-2 font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>These are the people whose jobs are on the line.</p>
 
         </div>
       </header>
@@ -291,6 +314,28 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               )}
             </button>
 
+            <div className="mt-8 max-w-md mx-auto">
+              <p className="text-gray-400 text-sm mb-3">Or enter your Ohio address:</p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={manualAddress}
+                  onChange={(e) => setManualAddress(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleAddressLookup(); }}
+                  placeholder="123 Main St, Cincinnati, OH 45202"
+                  className={inputClass}
+                />
+                <button
+                  onClick={handleAddressLookup}
+                  disabled={loading}
+                  className="text-white font-bold px-6 py-3 rounded-xl transition-all disabled:opacity-50 flex-shrink-0"
+                  style={{ backgroundColor: "#F7A51C" }}
+                >
+                  Go
+                </button>
+              </div>
+            </div>
+
             {error && (
               <div className="mt-6 rounded-xl p-4 text-sm max-w-md mx-auto" style={{ backgroundColor: "#FEF2F2", color: "#A42325", border: "1px solid #FECACA" }}>
                 {error}
@@ -298,8 +343,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             )}
 
             <p className="mt-6 text-gray-400 text-xs">
-              We use your browser location to identify your Ohio state legislative
-              districts via the U.S. Census Bureau. Your location data is not stored.
+              We use the U.S. Census Bureau to identify your Ohio state legislative
+              districts. Your data is not stored.
             </p>
           </div>
         )}
