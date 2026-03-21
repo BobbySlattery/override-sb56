@@ -273,7 +273,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <div className="relative max-w-4xl mx-auto" style={{ height: "280px" }}>
             <img src="/images/worker-1.jpg" alt="Brewery workers" className="absolute left-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
             <img src="/images/workers-2.jpg" alt="Brewery workers" className="absolute left-32 top-8 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
-            <img src="/images/thankyou.jpg" alt="Brewery team" className="absolute left-1/2 -translate-x-1/2 top-0 w-48 h-56 object-cover rounded-2xl shadow-xl -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-20" />
+            <img src="/images/thankyou.jpg" alt="Brewery team" className="absolute left-1/2 -translate-x-1/2 top-0 w-64 h-48 object-cover rounded-2xl shadow-xl -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-20" style={{ objectPosition: "center 60%" }} />
             <img src="/images/keg.jpg" alt="Brewery worker with keg" className="absolute right-32 top-6 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
             <img src="/images/workers-3.jpg" alt="Brewery workers" className="absolute right-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
           </div>
