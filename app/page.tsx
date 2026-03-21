@@ -323,74 +323,35 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </div>
           </div>
 
-          {/* Ohio map with 5 regions - realistic shape */}
-          <div className="relative max-w-lg mx-auto">
-            <svg viewBox="0 0 520 620" className="w-full" xmlns="http://www.w3.org/2000/svg">
-              {/* NW Ohio - Orange - Toledo/Lima/BG area */}
-              <path d="M18,42 L18,50 L20,58 L18,72 L15,100 L12,130 L10,160 L10,195 L12,230 L14,260 L16,280 L18,295
-                       L60,295 L100,295 L130,295 L130,260 L155,260 L155,230 L170,230 L170,195 L175,160
-                       L175,130 L170,100 L165,72 L160,50 L155,42
-                       L140,38 L120,35 L100,33 L80,35 L60,38 Z"
-                fill="#F7941D" stroke="white" strokeWidth="2.5" />
-
-              {/* NE Ohio - Blue - Cleveland/Akron/Youngstown */}
-              <path d="M155,42 L160,50 L165,72 L170,100 L175,130 L175,160 L170,195 L170,230 L155,230 L155,260 L130,260 L130,295
-                       L175,295 L220,295 L265,295 L310,295
-                       L310,260 L315,230 L320,195 L325,160 L330,130 L340,100
-                       L355,72 L370,50 L385,38 L400,30 L420,22 L440,18 L460,16
-                       L470,22 L478,35 L485,50 L490,68 L492,85 L490,100
-                       L485,118 L478,135 L470,150 L460,165 L450,178
-                       L435,190 L420,200 L410,210 L400,220 L395,235
-                       L390,250 L385,260 L380,275 L375,295
-                       L310,295 Z"
-                fill="#2196F3" stroke="white" strokeWidth="2.5" />
-
-              {/* Central Ohio - Red - Columbus/Marion/Delaware/Springfield */}
-              <path d="M130,295 L130,335 L128,370 L125,400 L120,430
-                       L160,430 L200,430 L240,430 L280,430 L310,430
-                       L340,430 L345,400 L350,370 L355,340 L360,310 L375,295
-                       L310,295 L265,295 L220,295 L175,295 Z"
-                fill="#E53935" stroke="white" strokeWidth="2.5" />
-
-              {/* SW Ohio - Gold - Cincinnati/Dayton/Hamilton */}
-              <path d="M18,295 L60,295 L100,295 L130,295 L130,335 L128,370 L125,400 L120,430
-                       L115,450 L108,470 L98,488 L85,502 L70,515 L55,525 L40,530
-                       L28,528 L20,520 L14,508 L10,490 L8,470 L8,450 L10,430
-                       L12,400 L14,370 L16,335 Z"
-                fill="#FFC107" stroke="white" strokeWidth="2.5" />
-
-              {/* SE Ohio - Green - Athens/Chillicothe/Portsmouth */}
-              <path d="M120,430 L160,430 L200,430 L240,430 L280,430 L310,430 L340,430
-                       L345,400 L350,370 L355,340 L360,310 L375,295
-                       L380,310 L385,330 L392,350 L400,370 L408,388
-                       L415,405 L420,420 L422,435 L420,450 L415,465
-                       L408,480 L398,495 L385,508 L370,520 L352,530
-                       L332,538 L310,544 L288,548 L265,550 L242,548
-                       L220,544 L200,538 L180,530 L162,520 L148,508
-                       L135,495 L125,480 L118,465 L115,450 Z"
-                fill="#4CAF50" stroke="white" strokeWidth="2.5" />
-
-              {/* Region labels with vote counts */}
-              <text x="95" y="155" textAnchor="middle" fill="white" fontWeight="800" fontSize="15">NW Ohio</text>
-              <text x="95" y="188" textAnchor="middle" fill="white" fontWeight="900" fontSize="32">{voteData.regions.NW || 0}</text>
-              <text x="95" y="208" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">votes</text>
-
-              <text x="380" y="120" textAnchor="middle" fill="white" fontWeight="800" fontSize="15">NE Ohio</text>
-              <text x="380" y="153" textAnchor="middle" fill="white" fontWeight="900" fontSize="32">{voteData.regions.NE || 0}</text>
-              <text x="380" y="173" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">votes</text>
-
-              <text x="250" y="340" textAnchor="middle" fill="white" fontWeight="800" fontSize="15">Central Ohio</text>
-              <text x="250" y="373" textAnchor="middle" fill="white" fontWeight="900" fontSize="32">{voteData.regions.Central || 0}</text>
-              <text x="250" y="393" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">votes</text>
-
-              <text x="70" y="400" textAnchor="middle" fill="white" fontWeight="800" fontSize="15">SW Ohio</text>
-              <text x="70" y="433" textAnchor="middle" fill="white" fontWeight="900" fontSize="32">{voteData.regions.SW || 0}</text>
-              <text x="70" y="453" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">votes</text>
-
-              <text x="300" y="468" textAnchor="middle" fill="white" fontWeight="800" fontSize="15">SE Ohio</text>
-              <text x="300" y="501" textAnchor="middle" fill="white" fontWeight="900" fontSize="32">{voteData.regions.SE || 0}</text>
-              <text x="300" y="521" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">votes</text>
-            </svg>
+          {/* Ohio map with 5 regions - using real map image */}
+          <div className="relative max-w-md mx-auto">
+            <img src="/images/ohio-regions.gif" alt="Ohio Regions Map" className="w-full" />
+            {/* Vote count overlays positioned over each region */}
+            {/* NW Ohio - Orange region (top-left) */}
+            <div className="absolute text-center" style={{ top: "18%", left: "12%" }}>
+              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.NW || 0}</div>
+              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            </div>
+            {/* NE Ohio - Blue region (top-right) */}
+            <div className="absolute text-center" style={{ top: "15%", right: "10%" }}>
+              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.NE || 0}</div>
+              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            </div>
+            {/* Central Ohio - Red region (middle) */}
+            <div className="absolute text-center" style={{ top: "42%", left: "42%" }}>
+              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.Central || 0}</div>
+              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            </div>
+            {/* SW Ohio - Yellow region (bottom-left) */}
+            <div className="absolute text-center" style={{ bottom: "22%", left: "10%" }}>
+              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.SW || 0}</div>
+              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            </div>
+            {/* SE Ohio - Green region (bottom-right) */}
+            <div className="absolute text-center" style={{ bottom: "18%", right: "15%" }}>
+              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.SE || 0}</div>
+              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            </div>
           </div>
         </div>
       </section>
