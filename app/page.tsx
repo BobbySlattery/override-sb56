@@ -624,8 +624,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               <div className="text-sm text-gray-600">Sections of SB 56 stripped from the bill</div>
             </div>
             <div className="text-center bg-white rounded-2xl p-6 shadow-md">
-              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>5mg</div>
-              <div className="text-sm text-gray-600">Low-dose THC beverages that would have been regulated — not banned</div>
+              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>$130M</div>
+              <div className="text-sm text-gray-600">Revenue impact on the state of Ohio according to the Whitney Economic Impact Study</div>
             </div>
           </div>
         </div>
