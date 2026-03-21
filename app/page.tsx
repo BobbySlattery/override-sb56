@@ -272,8 +272,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <strong>What happened:</strong> SB 56 created a regulatory framework for
           low-dose (5mg) THC beverages. Gov. DeWine vetoed every reference to it —
           overstepping his authority and undermining the legislative process. In order
-          to bring the beverages back, Speaker Huffman and Senate President McColley
-          must bring the override vote to the floor.
+          to bring the beverages back, Speaker of the House Matt Huffman and Senate
+          President Rob McColley must bring the override vote to the floor.
         </div>
       </div>
 
