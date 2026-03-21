@@ -339,7 +339,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* SW Ohio (bottom-left) */}
-            <div className="absolute text-center" style={{ top: "72%", left: "18%", transform: "translate(-50%, -50%)" }}>
+            <div className="absolute text-center" style={{ top: "66%", left: "18%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SW || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
