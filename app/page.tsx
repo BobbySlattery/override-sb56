@@ -614,7 +614,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-4 right-8 w-16 h-16 opacity-20 pointer-events-none" />
         <div className="max-w-3xl mx-auto px-6 py-12 relative z-10">
           <h2 className="text-2xl font-extrabold mb-8 text-center text-white">The Facts</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center bg-white rounded-2xl p-6 shadow-md">
               <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>15</div>
               <div className="text-sm text-gray-600">Pages of legislation deleted by DeWine&apos;s line-item veto</div>
@@ -626,6 +626,10 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <div className="text-center bg-white rounded-2xl p-6 shadow-md">
               <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>$130M</div>
               <div className="text-sm text-gray-600">Revenue impact on the state of Ohio according to the Whitney Economic Impact Study</div>
+            </div>
+            <div className="text-center bg-white rounded-2xl p-6 shadow-md">
+              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>700+</div>
+              <div className="text-sm text-gray-600">Jobs in Ohio at stake</div>
             </div>
           </div>
         </div>
