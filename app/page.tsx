@@ -189,27 +189,44 @@ ${senderZip || "[Your Zip]"}, Ohio`;
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
       {/* Hero */}
       <header style={{ background: "linear-gradient(135deg, #F7A51C 0%, #E8941A 50%, #F7A51C 100%)" }} className="text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white" />
-          <div className="absolute top-20 right-20 w-20 h-20 rounded-full bg-white" />
-          <div className="absolute bottom-10 left-1/3 w-16 h-16 rounded-full bg-white" />
-        </div>
-        <div className="max-w-3xl mx-auto px-6 py-16 text-center relative z-10">
-          <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.8)" }}>
-            Ohio Senate Bill 56
+        {/* Sunflower smiley icons as decorative bg elements */}
+        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-4 left-4 w-20 h-20 opacity-15 pointer-events-none" />
+        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute bottom-8 right-8 w-28 h-28 opacity-15 pointer-events-none" />
+        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-1/2 right-1/4 w-14 h-14 opacity-10 pointer-events-none" />
+
+        <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
+          {/* Sunflower smiley logo */}
+          <div className="flex justify-center mb-4">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-20 h-20" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            Override the Veto.
-            <br />
-            <span className="text-gray-900">Protect Ohio&apos;s Small Businesses.</span>
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
-            Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
-            beverage provisions the legislature passed with bipartisan support.
-            <strong className="text-white block mt-2">
-              The votes to override exist. Leadership just needs to bring it to the floor.
-            </strong>
-          </p>
+          {/* Sunflower text logo */}
+          <div className="flex justify-center mb-6">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-16 md:h-20" />
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 text-center md:text-left">
+              <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
+                Ohio Senate Bill 56
+              </div>
+              <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+                Override the Veto.
+                <br />
+                <span className="text-gray-900">Save Our Seltzers.</span>
+              </h1>
+              <p className="text-base md:text-lg max-w-xl leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
+                Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
+                beverage provisions the legislature passed with bipartisan support.
+                <strong className="text-white block mt-2">
+                  The votes to override exist. Leadership just needs to bring it to the floor.
+                </strong>
+              </p>
+            </div>
+            {/* Product can hero image */}
+            <div className="flex-shrink-0">
+              <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_1263.png" alt="Sunflower THC Seltzer Can" className="w-64 md:w-80 rounded-2xl shadow-2xl" />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -434,10 +451,22 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         )}
       </main>
 
+      {/* Product photo strip */}
+      <section className="overflow-hidden py-6" style={{ backgroundColor: "#FFF7ED" }}>
+        <div className="flex gap-4 justify-center items-center flex-wrap max-w-4xl mx-auto px-6">
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_7769.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
+        </div>
+      </section>
+
       {/* Facts section */}
       <WaveDivider color="#F7A51C" />
-      <section style={{ backgroundColor: "#F7A51C" }}>
-        <div className="max-w-3xl mx-auto px-6 py-12">
+      <section style={{ backgroundColor: "#F7A51C" }} className="relative overflow-hidden">
+        {/* Decorative smiley */}
+        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-4 right-8 w-16 h-16 opacity-20 pointer-events-none" />
+        <div className="max-w-3xl mx-auto px-6 py-12 relative z-10">
           <h2 className="text-2xl font-extrabold mb-8 text-center text-white">The Facts</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center bg-white rounded-2xl p-6 shadow-md">
