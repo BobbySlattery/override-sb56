@@ -319,34 +319,34 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </div>
           </div>
 
-          {/* Ohio map with 5 regions - using real map image */}
+          {/* Ohio map with 5 regions */}
           <div className="relative max-w-md mx-auto">
-            <img src="/images/ohio-regions.jpg" alt="Ohio Regions Map" className="w-full" />
+            <img src="/images/OhioMap.jpg" alt="Ohio Regions Map" className="w-full" />
             {/* Vote count overlays positioned over each region */}
-            {/* NW Ohio - Orange region (top-left) */}
-            <div className="absolute text-center" style={{ top: "18%", left: "12%" }}>
-              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.NW || 0}</div>
-              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            {/* NW Ohio (top-left) */}
+            <div className="absolute text-center" style={{ top: "18%", left: "15%" }}>
+              <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NW || 0}</div>
+              <div className="text-gray-700 text-xs font-bold">votes</div>
             </div>
-            {/* NE Ohio - Blue region (top-right) */}
-            <div className="absolute text-center" style={{ top: "15%", right: "10%" }}>
-              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.NE || 0}</div>
-              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            {/* NE Ohio (top-right) */}
+            <div className="absolute text-center" style={{ top: "15%", right: "12%" }}>
+              <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NE || 0}</div>
+              <div className="text-gray-700 text-xs font-bold">votes</div>
             </div>
-            {/* Central Ohio - Red region (middle) */}
+            {/* Central Ohio (middle) */}
             <div className="absolute text-center" style={{ top: "42%", left: "42%" }}>
-              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.Central || 0}</div>
-              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+              <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.Central || 0}</div>
+              <div className="text-gray-700 text-xs font-bold">votes</div>
             </div>
-            {/* SW Ohio - Yellow region (bottom-left) */}
-            <div className="absolute text-center" style={{ bottom: "22%", left: "10%" }}>
-              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.SW || 0}</div>
-              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+            {/* SW Ohio (bottom-left) */}
+            <div className="absolute text-center" style={{ bottom: "22%", left: "12%" }}>
+              <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SW || 0}</div>
+              <div className="text-gray-700 text-xs font-bold">votes</div>
             </div>
-            {/* SE Ohio - Green region (bottom-right) */}
+            {/* SE Ohio (bottom-right) */}
             <div className="absolute text-center" style={{ bottom: "18%", right: "15%" }}>
-              <div className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg">{voteData.regions.SE || 0}</div>
-              <div className="text-white text-xs font-bold drop-shadow-lg">votes</div>
+              <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SE || 0}</div>
+              <div className="text-gray-700 text-xs font-bold">votes</div>
             </div>
           </div>
         </div>
