@@ -228,16 +228,16 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </p>
           </div>
 
-          {/* Brewery worker photos */}
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-3 max-w-4xl mx-auto">
-            <img src="/images/brewery-workers-1.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
-            <img src="/images/brewery-workers-2.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
-            <img src="/images/brewery-workers-3.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
-            <img src="/images/brewery-thankyou.png" alt="Brewery team thank you" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
-            <img src="/images/brewery-keg.png" alt="Brewery worker with keg" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
-            <img src="/images/brewery-team.png" alt="Brewery team" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+          {/* Brewery worker photos - flowing collage */}
+          <div className="flex justify-center gap-3 md:gap-4 max-w-4xl mx-auto flex-wrap">
+            <img src="/images/Screenshot 2026-03-21 at 12.02.56 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-2 hover:rotate-0 transition-transform" />
+            <img src="/images/Screenshot 2026-03-21 at 12.08.36 AM.jpg" alt="Brewery team" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-1 hover:rotate-0 transition-transform mt-4" />
+            <img src="/images/Screenshot 2026-03-21 at 12.06.04 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-1 hover:rotate-0 transition-transform" />
+            <img src="/images/Screenshot 2026-03-21 at 12.09.45 AM.jpg" alt="Brewery worker with keg" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-2 hover:rotate-0 transition-transform mt-6" />
+            <img src="/images/Screenshot 2026-03-21 at 12.06.40 AM.jpg" alt="Brewery workers" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg -rotate-2 hover:rotate-0 transition-transform" />
+            <img src="/images/Screenshot 2026-03-21 at 12.11.40 AM.jpg" alt="Brewery team" className="w-28 h-36 md:w-36 md:h-48 object-cover rounded-2xl shadow-lg rotate-1 hover:rotate-0 transition-transform mt-3" />
           </div>
-          <p className="text-center text-sm mt-3 font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>These are the people whose jobs are on the line.</p>
+          <p className="text-center text-sm mt-4 font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>These are the people whose jobs are on the line.</p>
 
         </div>
       </header>
