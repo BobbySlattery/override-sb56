@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getHouseRep, getSenator, LEADERSHIP } from "@/data/legislators";
 
+// Census Bureau Geocoder - returns state legislative districts from coordinates
+// This is a free API with no key required
 async function getDistrictsFromCoords(lat: number, lng: number) {
   const url = new URL(
     "https://geocoding.geo.census.gov/geocoder/geographies/coordinates"
@@ -22,13 +24,17 @@ async function getDistrictsFromCoords(lat: number, lng: number) {
     throw new Error("No geographies returned from Census geocoder");
   }
 
+  // The Census geocoder uses year-prefixed layer names that change over time
+  // Search for the correct keys dynamically
   const geoKeys = Object.keys(geographies);
 
   const lowerKey = geoKeys.find(
-    (k) => k.includes("State Legislative Districts") && k.includes("Lower")
+    (k) =>
+      k.includes("State Legislative Districts") && k.includes("Lower")
   );
   const upperKey = geoKeys.find(
-    (k) => k.includes("State Legislative Districts") && k.includes("Upper")
+    (k) =>
+      k.includes("State Legislative Districts") && k.includes("Upper")
   );
   const stateKey = geoKeys.find(
     (k) => k === "States" || k.includes("States")
@@ -38,6 +44,7 @@ async function getDistrictsFromCoords(lat: number, lng: number) {
   const stateUpper = upperKey ? geographies[upperKey]?.[0] : null;
   const state = stateKey ? geographies[stateKey]?.[0] : null;
 
+  // Check if we're in Ohio (FIPS code 39)
   const stateCode = state?.STATE || stateLower?.STATE || stateUpper?.STATE;
   if (stateCode && stateCode !== "39") {
     return { error: "not_ohio", stateCode };
@@ -53,7 +60,13 @@ async function getDistrictsFromCoords(lat: number, lng: number) {
   return {
     houseDistrict: houseDistrict && houseDistrict > 0 ? houseDistrict : null,
     senateDistrict: senateDistrict && senateDistrict > 0 ? senateDistrict : null,
-    debug: { availableLayers: geoKeys, lowerKey, upperKey, stateLower, stateUpper },
+    debug: {
+      availableLayers: geoKeys,
+      lowerKey,
+      upperKey,
+      stateLower,
+      stateUpper,
+    },
   };
 }
 
@@ -74,7 +87,11 @@ export async function GET(request: NextRequest) {
 
     if ("error" in districts && districts.error === "not_ohio") {
       return NextResponse.json(
-        { error: "not_ohio", message: "This tool is for Ohio residents. Your location does not appear to be in Ohio." },
+        {
+          error: "not_ohio",
+          message:
+            "This tool is for Ohio residents. Your location does not appear to be in Ohio.",
+        },
         { status: 400 }
       );
     }

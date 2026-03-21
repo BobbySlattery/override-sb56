@@ -4,7 +4,8 @@ import nodemailer from "nodemailer";
 interface EmailPayload {
   senderName: string;
   senderEmail: string;
-  senderCity: string;
+  senderAddress: string;
+  senderZip: string;
   recipients: {
     name: string;
     email: string;
@@ -16,7 +17,8 @@ interface EmailPayload {
 
 function buildEmailBody(
   senderName: string,
-  senderCity: string,
+  senderAddress: string,
+  senderZip: string,
   recipientName: string,
   recipientTitle: string | undefined,
   houseDistrict: number | null,
@@ -33,7 +35,7 @@ function buildEmailBody(
 
   return `Dear ${recipientTitle ? recipientTitle + " " : ""}${recipientName},
 
-${districtInfo} in ${senderCity}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
+${districtInfo} at ${senderAddress}, ${senderZip}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
 
 The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine's line-item veto stripped 15 pages and 17 sections from the bill — fundamentally changing what the legislature voted on. This was not a surgical line-item veto of an appropriation; it was a wholesale rewrite of policy that the legislature had deliberated and approved.
 
@@ -51,13 +53,14 @@ Thank you for your service to our state. I look forward to your response.
 
 Sincerely,
 ${senderName}
-${senderCity}, Ohio`;
+${senderAddress}
+${senderZip}, Ohio`;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const payload: EmailPayload = await request.json();
-    const { senderName, senderEmail, senderCity, recipients, houseDistrict, senateDistrict } =
+    const { senderName, senderEmail, senderAddress, senderZip, recipients, houseDistrict, senateDistrict } =
       payload;
 
     if (!senderName || !senderEmail || !recipients?.length) {
@@ -97,7 +100,8 @@ export async function POST(request: NextRequest) {
     for (const recipient of recipients) {
       const body = buildEmailBody(
         senderName,
-        senderCity,
+        senderAddress,
+        senderZip,
         recipient.name,
         recipient.title,
         houseDistrict,

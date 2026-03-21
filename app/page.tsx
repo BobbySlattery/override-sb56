@@ -30,7 +30,8 @@ export default function Home() {
   const [lookupData, setLookupData] = useState<LookupResult | null>(null);
   const [senderName, setSenderName] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
-  const [senderCity, setSenderCity] = useState("");
+  const [senderAddress, setSenderAddress] = useState("");
+  const [senderZip, setSenderZip] = useState("");
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
@@ -96,6 +97,7 @@ export default function Home() {
         name: lookupData.houseRep.name,
         email: lookupData.houseRep.email,
         role: `Your State Representative (District ${lookupData.houseDistrict})`,
+        photo: (lookupData.houseRep as Record<string, unknown>).photo as string || "",
       });
     }
     if (lookupData.senator) {
@@ -103,6 +105,7 @@ export default function Home() {
         name: lookupData.senator.name,
         email: lookupData.senator.email,
         role: `Your State Senator (District ${lookupData.senateDistrict})`,
+        photo: (lookupData.senator as Record<string, unknown>).photo as string || "",
       });
     }
     list.push({
@@ -110,20 +113,22 @@ export default function Home() {
       email: lookupData.leadership.houseSpeaker.email,
       title: lookupData.leadership.houseSpeaker.title,
       role: "Speaker of the Ohio House",
+      photo: (lookupData.leadership.houseSpeaker as Record<string, unknown>).photo as string || "",
     });
     list.push({
       name: lookupData.leadership.senatePresident.name,
       email: lookupData.leadership.senatePresident.email,
       title: lookupData.leadership.senatePresident.title,
       role: "President of the Ohio Senate",
+      photo: (lookupData.leadership.senatePresident as Record<string, unknown>).photo as string || "",
     });
 
     return list;
   };
 
   const handleSendEmails = async () => {
-    if (!senderName.trim() || !senderEmail.trim() || !senderCity.trim()) {
-      setError("Please fill in your name, email, and city.");
+    if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) {
+      setError("Please fill in all fields.");
       return;
     }
     setSending(true);
@@ -142,7 +147,8 @@ export default function Home() {
         body: JSON.stringify({
           senderName: senderName.trim(),
           senderEmail: senderEmail.trim(),
-          senderCity: senderCity.trim(),
+          senderAddress: senderAddress.trim(),
+          senderZip: senderZip.trim(),
           recipients,
           houseDistrict: lookupData?.houseDistrict,
           senateDistrict: lookupData?.senateDistrict,
@@ -177,7 +183,7 @@ export default function Home() {
     const body = encodeURIComponent(
       `Dear Ohio Legislators,
 
-${districtLine}${senderCity ? ` in ${senderCity}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
 
 The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine's line-item veto stripped 15 pages and 17 sections from the bill — fundamentally changing what the legislature voted on.
 
@@ -185,12 +191,12 @@ Ohio's craft breweries, small businesses, and hemp beverage manufacturers invest
 
 The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
 
-I respectfully ask that you publicly call for and support bringing to bring the beverages back, Speaker Huffman and Senate President McColley
-          must bring the override vote to the floor.
+I respectfully ask that you publicly call for and support bringing the override vote to the floor.
 
 Sincerely,
 ${senderName || "[Your Name]"}
-${senderCity || "[Your City]"}, Ohio`
+${senderAddress || "[Your Address]"}
+${senderZip || "[Your Zip]"}, Ohio`
     );
 
     return `mailto:${toEmails}?subject=${subject}&body=${body}`;
@@ -204,7 +210,7 @@ ${senderCity || "[Your City]"}, Ohio`
 
     return `Dear [Legislator Name],
 
-${districtLine}${senderCity ? ` in ${senderCity}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
 
 The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine's line-item veto stripped 15 pages and 17 sections from the bill — fundamentally changing what the legislature voted on. This was not a surgical line-item veto of an appropriation; it was a wholesale rewrite of policy that the legislature had deliberated and approved.
 
@@ -216,14 +222,14 @@ This matters because:
 
 - The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
 
-I respectfully ask that you publicly call for and support bringing to bring the beverages back, Speaker Huffman and Senate President McColley
-          must bring the override vote to the floor.of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
+I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
 
 Thank you for your service to our state. I look forward to your response.
 
 Sincerely,
 ${senderName || "[Your Name]"}
-${senderCity || "[Your City]"}, Ohio`;
+${senderAddress || "[Your Address]"}
+${senderZip || "[Your Zip]"}, Ohio`;
   };
 
   return (
@@ -255,8 +261,7 @@ ${senderCity || "[Your City]"}, Ohio`;
       <div className="bg-amber-50 border-b border-amber-200">
         <div className="max-w-3xl mx-auto px-6 py-4 text-center text-amber-900 text-sm">
           <strong>What happened:</strong> SB 56 created a regulatory framework for
-          low-dose (5mg) THC beverages. Gov. DeWine vetoed every
-          reference to it —
+          low-dose (5mg) THC beverages. Gov. DeWine vetoed every reference to it —
           overstepping his authority and undermining the legislative process. In order
           to bring the beverages back, Speaker Huffman and Senate President McColley
           must bring the override vote to the floor.
@@ -274,8 +279,7 @@ ${senderCity || "[Your City]"}, Ohio`;
             <p className="text-stone-600 mb-8 max-w-xl mx-auto">
               We&apos;ll identify your Ohio State House Rep and Senator, then send them
               — along with Speaker Huffman and Senate President McColley — a message
-              urging them to bring to bring the beverages back, Speaker Huffman and Senate President McColley
-          must bring the override vote to the floor.
+              urging them to bring the override vote to the floor.
             </p>
 
             <button
@@ -336,13 +340,20 @@ ${senderCity || "[Your City]"}, Ohio`;
               {getRecipients().map((r, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between bg-white border border-stone-200 rounded-lg px-5 py-4 shadow-sm"
+                  className="flex items-center gap-4 bg-white border border-stone-200 rounded-lg px-5 py-4 shadow-sm"
                 >
-                  <div>
+                  {r.photo && (
+                    <img
+                      src={r.photo}
+                      alt={r.name}
+                      className="w-14 h-14 rounded-full object-cover flex-shrink-0 border-2 border-stone-200"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
                     <div className="font-semibold text-stone-900">{r.name}</div>
                     <div className="text-sm text-stone-500">{r.role}</div>
                   </div>
-                  <div className="text-sm text-stone-400">{r.email}</div>
+                  <div className="text-sm text-stone-400 hidden sm:block">{r.email}</div>
                 </div>
               ))}
             </div>
@@ -377,13 +388,25 @@ ${senderCity || "[Your City]"}, Ohio`;
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-stone-700 mb-1">
-                    City
+                    Home Address
                   </label>
                   <input
                     type="text"
-                    value={senderCity}
-                    onChange={(e) => setSenderCity(e.target.value)}
-                    placeholder="Cincinnati"
+                    value={senderAddress}
+                    onChange={(e) => setSenderAddress(e.target.value)}
+                    placeholder="123 Main St, Cincinnati"
+                    className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-stone-700 mb-1">
+                    Zip Code
+                  </label>
+                  <input
+                    type="text"
+                    value={senderZip}
+                    onChange={(e) => setSenderZip(e.target.value)}
+                    placeholder="45202"
                     className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
@@ -516,7 +539,8 @@ ${senderCity || "[Your City]"}, Ohio`;
                 setLookupData(null);
                 setSenderName("");
                 setSenderEmail("");
-                setSenderCity("");
+                setSenderAddress("");
+                setSenderZip("");
                 setSendResult(null);
                 setError(null);
               }}
