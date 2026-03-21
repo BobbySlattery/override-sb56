@@ -325,7 +325,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
           {/* Ohio map with 5 regions - using real map image */}
           <div className="relative max-w-md mx-auto">
-            <img src="/images/ohio-regions.gif" alt="Ohio Regions Map" className="w-full" />
+            <img src="/images/ohio-regions.jpg" alt="Ohio Regions Map" className="w-full" />
             {/* Vote count overlays positioned over each region */}
             {/* NW Ohio - Orange region (top-left) */}
             <div className="absolute text-center" style={{ top: "18%", left: "12%" }}>
