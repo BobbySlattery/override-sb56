@@ -324,27 +324,27 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/OhioMap.jpg" alt="Ohio Regions Map" className="w-full" />
             {/* Vote count overlays positioned over each region */}
             {/* NW Ohio (top-left) */}
-            <div className="absolute text-center" style={{ top: "18%", left: "15%" }}>
+            <div className="absolute text-center" style={{ top: "20%", left: "18%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NW || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* NE Ohio (top-right) */}
-            <div className="absolute text-center" style={{ top: "15%", right: "12%" }}>
+            <div className="absolute text-center" style={{ top: "18%", left: "70%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NE || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* Central Ohio (middle) */}
-            <div className="absolute text-center" style={{ top: "42%", left: "42%" }}>
+            <div className="absolute text-center" style={{ top: "46%", left: "42%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.Central || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* SW Ohio (bottom-left) */}
-            <div className="absolute text-center" style={{ bottom: "22%", left: "12%" }}>
+            <div className="absolute text-center" style={{ top: "72%", left: "18%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SW || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* SE Ohio (bottom-right) */}
-            <div className="absolute text-center" style={{ bottom: "28%", right: "22%" }}>
+            <div className="absolute text-center" style={{ top: "65%", left: "62%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SE || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
