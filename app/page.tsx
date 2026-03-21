@@ -151,7 +151,7 @@ export default function Home() {
         fetch("/api/vote", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim() }),
+          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim() }),
         }).then(r => r.json()).then(() => {
           fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
         }).catch(() => {});
@@ -514,7 +514,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                   fetch("/api/vote", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim() }),
+                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim() }),
                   }).then(() => fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {})).catch(() => {});
                 }}
                 className="flex-1 font-bold px-6 py-4 rounded-full transition-all text-center text-lg hover:shadow-md"
