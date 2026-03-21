@@ -191,7 +191,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex justify-center items-center gap-6 md:gap-10 flex-wrap">
-            <img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-12 md:h-16" />
+            <img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-16 md:h-20" />
             <img src="https://www.greatlakesbrewing.com/wp-content/uploads/2026/03/glbc-logo-blue-large.svg" alt="Great Lakes Brewing" className="h-12 md:h-16" />
             <img src="https://fiftywestbrew.com/wp-content/uploads/sites/90/2018/04/50W-Logo.png" alt="Fifty West" className="h-12 md:h-16" />
             <img src="https://craftpeak-cooler-images.imgix.net/jackie-os-pub-brewery/Logo_Outline.png" alt="Jackie O's" className="h-12 md:h-16" />
