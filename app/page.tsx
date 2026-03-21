@@ -203,12 +203,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
       {/* Hero */}
       <header style={{ background: "linear-gradient(135deg, #F7A51C 0%, #E8941A 50%, #F7A51C 100%)" }} className="text-white relative overflow-hidden">
-        {/* Sunflower smiley icons as decorative bg elements */}
-        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-4 left-4 w-20 h-20 opacity-15 pointer-events-none" />
-        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute bottom-8 right-8 w-28 h-28 opacity-15 pointer-events-none" />
-        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-1/2 right-1/4 w-14 h-14 opacity-10 pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
+        <div className="max-w-5xl mx-auto px-6 py-10 relative z-10">
 
           <div className="text-center mb-8">
             <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
@@ -231,6 +227,17 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               </strong>
             </p>
           </div>
+
+          {/* Brewery worker photos */}
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-3 max-w-4xl mx-auto">
+            <img src="/images/brewery-workers-1.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+            <img src="/images/brewery-workers-2.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+            <img src="/images/brewery-workers-3.png" alt="Brewery workers" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+            <img src="/images/brewery-thankyou.png" alt="Brewery team thank you" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+            <img src="/images/brewery-keg.png" alt="Brewery worker with keg" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+            <img src="/images/brewery-team.png" alt="Brewery team" className="w-full h-32 md:h-40 object-cover rounded-2xl shadow-lg" />
+          </div>
+          <p className="text-center text-sm mt-3 font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>These are the people whose jobs are on the line.</p>
 
         </div>
       </header>
