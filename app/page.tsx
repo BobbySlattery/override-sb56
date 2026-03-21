@@ -195,37 +195,36 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-1/2 right-1/4 w-14 h-14 opacity-10 pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
-          {/* Sunflower smiley logo */}
-          <div className="flex justify-center mb-4">
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-20 h-20" />
-          </div>
-          {/* Sunflower text logo */}
-          <div className="flex justify-center mb-6">
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-16 md:h-20" />
+          {/* Brand logos */}
+          <div className="flex justify-center items-center gap-6 mb-6">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-16 h-16" />
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-12 md:h-16" />
+            <div className="w-px h-12 bg-white opacity-30" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/FuzzyBones_WORKING_MG_10_06_2025_b00bcd9a-9474-4e0f-8cb5-e70cf15f7639.png" alt="Fuzzy Bones" className="h-12 md:h-16" />
           </div>
 
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1 text-center md:text-left">
-              <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
-                Ohio Senate Bill 56
-              </div>
-              <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-                Override the Veto.
-                <br />
-                <span className="text-gray-900">Save Our Seltzers.</span>
-              </h1>
-              <p className="text-base md:text-lg max-w-xl leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
-                Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
-                beverage provisions the legislature passed with bipartisan support.
-                <strong className="text-white block mt-2">
-                  The votes to override exist. Leadership just needs to bring it to the floor.
-                </strong>
-              </p>
+          <div className="text-center mb-8">
+            <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
+              Ohio Senate Bill 56
             </div>
-            {/* Product can hero image */}
-            <div className="flex-shrink-0">
-              <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_1263.png" alt="Sunflower THC Seltzer Can" className="w-64 md:w-80 rounded-2xl shadow-2xl" />
-            </div>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+              Override the Veto.
+              <br />
+              <span className="text-gray-900">Save Our Seltzers.</span>
+            </h1>
+            <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
+              Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
+              beverage provisions the legislature passed with bipartisan support.
+              <strong className="text-white block mt-2">
+                The votes to override exist. Leadership just needs to bring it to the floor.
+              </strong>
+            </p>
+          </div>
+
+          {/* Product cans - both brands */}
+          <div className="flex justify-center items-end gap-4 md:gap-6">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_1263.png" alt="Sunflower THC Seltzer" className="w-40 md:w-56 rounded-2xl shadow-2xl" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/all3_277b8f39-cfb4-44d0-8cc1-6d1725f087c4.webp" alt="Fuzzy Bones THC Beverages" className="w-48 md:w-64 rounded-2xl shadow-2xl" />
           </div>
         </div>
       </header>
@@ -451,13 +450,16 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         )}
       </main>
 
-      {/* Product photo strip */}
-      <section className="overflow-hidden py-6" style={{ backgroundColor: "#FFF7ED" }}>
-        <div className="flex gap-4 justify-center items-center flex-wrap max-w-4xl mx-auto px-6">
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_7769.jpg" alt="Sunflower Seltzers" className="w-40 h-40 object-cover rounded-2xl shadow-md" />
+      {/* Product photo strip - both brands */}
+      <section className="overflow-hidden py-8" style={{ backgroundColor: "#FFF7ED" }}>
+        <h3 className="text-center font-extrabold text-xl text-gray-900 mb-6">Products at Risk</h3>
+        <div className="flex gap-4 justify-center items-center flex-wrap max-w-5xl mx-auto px-6">
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://drinkfuzzybones.com/cdn/shop/files/lemon-blueberry-fuzzy-bones-5.png" alt="Fuzzy Bones Lemon Blueberry" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://drinkfuzzybones.com/cdn/shop/files/blackberry-hibiscus-fuzzy-bones-5.png" alt="Fuzzy Bones Blackberry Hibiscus" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
         </div>
       </section>
 
