@@ -195,14 +195,14 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-1/2 right-1/4 w-14 h-14 opacity-10 pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
-          {/* Brand logos */}
-          <div className="flex justify-center items-center gap-4 md:gap-6 mb-6 flex-wrap">
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-14 h-14" />
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-10 md:h-14" />
-            <div className="w-px h-10 bg-white opacity-30 hidden md:block" />
-            <img src="https://drinkfuzzybones.com/cdn/shop/files/FuzzyBones_WORKING_MG_10_06_2025_b00bcd9a-9474-4e0f-8cb5-e70cf15f7639.png" alt="Fuzzy Bones" className="h-10 md:h-14" />
-            <div className="w-px h-10 bg-white opacity-30 hidden md:block" />
-            <img src="https://thefloatshoppe.com/cdn/shop/files/GLBC-TheFloatShoppe_Logo-Horizontal_FullColor.png" alt="The Float Shoppe" className="h-10 md:h-14 bg-white rounded-lg px-2 py-1" />
+          {/* Brewery logos */}
+          <div className="flex justify-center items-center gap-5 md:gap-8 mb-6 flex-wrap">
+            <img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-10 md:h-12 brightness-0 invert" />
+            <img src="https://www.greatlakesbrewing.com/wp-content/uploads/2026/03/glbc-logo-blue-large.svg" alt="Great Lakes Brewing" className="h-10 md:h-12 brightness-0 invert" />
+            <img src="https://fiftywestbrew.com/wp-content/uploads/sites/90/2018/04/50W-Logo.png" alt="Fifty West" className="h-10 md:h-12 brightness-0 invert" />
+            <img src="https://craftpeak-cooler-images.imgix.net/jackie-os-pub-brewery/Logo_Outline.png" alt="Jackie O's" className="h-10 md:h-12 brightness-0 invert" />
+            <img src="https://artifactbeer.com/cdn/shop/files/UA2023-web-01_1000x.png" alt="Urban Artifact" className="h-10 md:h-12 brightness-0 invert" />
+            <img src="https://static1.squarespace.com/static/51abeb0be4b08f6a770c06bf/t/682c9b3ab03574795392d2be/1747753786428/SeventhSon_Logo_Orange_Shield.png" alt="Seventh Son" className="h-10 md:h-12 brightness-0 invert" />
           </div>
 
           <div className="text-center mb-8">
