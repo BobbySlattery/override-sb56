@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 interface Legislator {
   district: number;
@@ -36,6 +36,12 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
+  const [voteData, setVoteData] = useState<{ total: number; quadrants: Record<string, number>; goal: number }>({ total: 0, quadrants: { NW: 0, NE: 0, SW: 0, SE: 0 }, goal: 1000 });
+
+  // Fetch vote counts on load
+  useEffect(() => {
+    fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
+  }, []);
 
   const doLookup = useCallback(async (lat: number, lng: number) => {
     setLoading(true);
@@ -138,7 +144,18 @@ export default function Home() {
         body: JSON.stringify({ senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim(), senderZip: senderZip.trim(), recipients, houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict }),
       });
       const data = await res.json();
-      if (data.success) { setSendResult(data.message); setStep("done"); }
+      if (data.success) {
+        setSendResult(data.message);
+        setStep("done");
+        // Record the vote
+        fetch("/api/vote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim() }),
+        }).then(r => r.json()).then(() => {
+          fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
+        }).catch(() => {});
+      }
       else setError(data.error || "Failed to send emails. Please try the mailto option below.");
     } catch { setError("Network error sending emails. Please try the mailto option below."); }
     finally { setSending(false); }
@@ -278,6 +295,71 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       </div>
 
       <WaveDivider flip color="#FFF7ED" />
+
+      {/* Vote Counter + Ohio Map */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          {/* Big total number */}
+          <div className="text-center mb-2">
+            <div className="text-6xl md:text-8xl font-extrabold" style={{ color: "#F7A51C" }}>
+              {voteData.total.toLocaleString()}
+            </div>
+            <div className="text-xl md:text-2xl font-bold text-gray-700 mt-1">
+              Ohioans demanding the override vote
+            </div>
+            <div className="text-sm text-gray-400 mt-1">Goal: {voteData.goal.toLocaleString()}</div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="max-w-md mx-auto mb-10">
+            <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-1000"
+                style={{
+                  width: `${Math.min((voteData.total / voteData.goal) * 100, 100)}%`,
+                  background: "linear-gradient(90deg, #F7A51C, #E8941A)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Ohio map with quadrants */}
+          <div className="relative max-w-lg mx-auto">
+            <svg viewBox="0 0 400 350" className="w-full" xmlns="http://www.w3.org/2000/svg">
+              {/* Simplified Ohio outline */}
+              <path
+                d="M80,30 L120,15 L160,10 L200,8 L240,12 L270,18 L300,30 L330,25 L355,40 L370,60 L365,90 L350,120 L340,150 L335,180 L345,210 L350,240 L340,270 L320,290 L290,310 L260,320 L230,325 L200,330 L170,325 L140,315 L110,300 L85,280 L70,255 L60,225 L55,195 L50,165 L55,135 L60,105 L65,75 L70,50 Z"
+                fill="none"
+                stroke="#D1D5DB"
+                strokeWidth="2"
+              />
+              {/* Quadrant dividers */}
+              <line x1="200" y1="8" x2="200" y2="330" stroke="#E5E7EB" strokeWidth="1" strokeDasharray="6,4" />
+              <line x1="50" y1="170" x2="370" y2="170" stroke="#E5E7EB" strokeWidth="1" strokeDasharray="6,4" />
+
+              {/* NW quadrant */}
+              <text x="120" y="80" textAnchor="middle" className="text-sm font-bold" fill="#92400E">NW Ohio</text>
+              <text x="120" y="110" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.NW || 0}</text>
+              <text x="120" y="130" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+
+              {/* NE quadrant */}
+              <text x="280" y="80" textAnchor="middle" className="text-sm font-bold" fill="#92400E">NE Ohio</text>
+              <text x="280" y="110" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.NE || 0}</text>
+              <text x="280" y="130" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+
+              {/* SW quadrant */}
+              <text x="120" y="220" textAnchor="middle" className="text-sm font-bold" fill="#92400E">SW Ohio</text>
+              <text x="120" y="250" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.SW || 0}</text>
+              <text x="120" y="270" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+
+              {/* SE quadrant */}
+              <text x="280" y="220" textAnchor="middle" className="text-sm font-bold" fill="#92400E">SE Ohio</text>
+              <text x="280" y="250" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.SE || 0}</text>
+              <text x="280" y="270" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+            </svg>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
@@ -436,6 +518,13 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               </button>
               <a
                 href={getMailtoLink()}
+                onClick={() => {
+                  fetch("/api/vote", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim() }),
+                  }).then(() => fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {})).catch(() => {});
+                }}
                 className="flex-1 font-bold px-6 py-4 rounded-full transition-all text-center text-lg hover:shadow-md"
                 style={{ backgroundColor: "white", color: "#B45309", border: "2px solid #F7A51C" }}
               >
