@@ -218,6 +218,10 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               Override the Veto.
               <br />
               <span className="text-gray-900">Save Our Seltzers.</span>
+              <br />
+              <span className="text-gray-900">Save Our Jobs.</span>
+              <br />
+              <span className="text-gray-900">Save Ohio.</span>
             </h1>
             <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
               Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
