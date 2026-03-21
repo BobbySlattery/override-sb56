@@ -362,7 +362,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         {step === "locate" && (
           <div className="text-center">
             <h2 className="text-3xl font-extrabold mb-3 text-gray-900">
-              Contact Your Representatives
+              Join the Fight
             </h2>
             <p className="text-gray-500 mb-8 max-w-xl mx-auto text-lg">
               We&apos;ll identify your Ohio State House Rep and Senator, then send them
