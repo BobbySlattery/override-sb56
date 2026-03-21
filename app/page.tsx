@@ -185,7 +185,8 @@ Ohio's craft breweries, small businesses, and hemp beverage manufacturers invest
 
 The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
 
-I respectfully ask that you publicly call for and support bringing the override vote to the floor.
+I respectfully ask that you publicly call for and support bringing to bring the beverages back, Speaker Huffman and Senate President McColley
+          must bring the override vote to the floor.
 
 Sincerely,
 ${senderName || "[Your Name]"}
@@ -215,7 +216,8 @@ This matters because:
 
 - The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
 
-I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
+I respectfully ask that you publicly call for and support bringing to bring the beverages back, Speaker Huffman and Senate President McColley
+          must bring the override vote to the floor.of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
 
 Thank you for your service to our state. I look forward to your response.
 
@@ -253,10 +255,11 @@ ${senderCity || "[Your City]"}, Ohio`;
       <div className="bg-amber-50 border-b border-amber-200">
         <div className="max-w-3xl mx-auto px-6 py-4 text-center text-amber-900 text-sm">
           <strong>What happened:</strong> SB 56 created a regulatory framework for
-          low-dose (5mg) THC beverages through Dec 31, 2026. Gov. DeWine vetoed every
-          reference to it — overstepping his authority and undermining the legislative
-          process. Speaker Huffman and Senate President McColley are refusing to bring
-          the override vote to the floor.
+          low-dose (5mg) THC beverages. Gov. DeWine vetoed every
+          reference to it —
+          overstepping his authority and undermining the legislative process. In order
+          to bring the beverages back, Speaker Huffman and Senate President McColley
+          must bring the override vote to the floor.
         </div>
       </div>
 
@@ -271,7 +274,8 @@ ${senderCity || "[Your City]"}, Ohio`;
             <p className="text-stone-600 mb-8 max-w-xl mx-auto">
               We&apos;ll identify your Ohio State House Rep and Senator, then send them
               — along with Speaker Huffman and Senate President McColley — a message
-              urging them to bring the override vote to the floor.
+              urging them to bring to bring the beverages back, Speaker Huffman and Senate President McColley
+          must bring the override vote to the floor.
             </p>
 
             <button
