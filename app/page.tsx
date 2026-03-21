@@ -286,11 +286,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       {/* Info Bar */}
       <div style={{ backgroundColor: "#FFF7ED" }}>
         <div className="max-w-3xl mx-auto px-6 py-4 text-center text-sm" style={{ color: "#92400E" }}>
-          <strong>What happened:</strong> SB 56 created a regulatory framework for
-          low-dose (5mg) THC beverages. Gov. DeWine vetoed every reference to it —
-          overstepping his authority and undermining the legislative process. In order
-          to bring the beverages back, Speaker of the House Matt Huffman and Senate
-          President Rob McColley must bring the override vote to the floor.
+          Ohio lawmakers in the House and Senate did the work to create clear, common-sense rules for low-dose (5mg) THC beverages through Senate Bill 56. The bill established strict manufacturing oversight, required sales only to those 21 and older, and limited distribution to licensed establishments. It was a bipartisan effort shaped with input from regulators and industry leaders to bring an existing market into a safe, controlled system. However, when the bill reached Governor DeWine&apos;s desk, he used a line-item veto to remove all language in the bill pertaining to beverage provisions — overriding the intent of both the House and Senate. Now, the only way to restore what lawmakers already approved is for legislative leaders to bring an override vote to the floor.
         </div>
       </div>
 
