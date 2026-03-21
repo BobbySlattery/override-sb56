@@ -92,35 +92,44 @@ export default function Home() {
     if (!lookupData) return [];
     const list: { name: string; email: string; title?: string; role: string; photo?: string }[] = [];
 
-    if (lookupData.houseRep) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rep = lookupData.houseRep as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sen = lookupData.senator as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const spk = lookupData.leadership.houseSpeaker as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pres = lookupData.leadership.senatePresident as any;
+
+    if (rep) {
       list.push({
-        name: lookupData.houseRep.name,
-        email: lookupData.houseRep.email,
+        name: rep.name,
+        email: rep.email,
         role: `Your State Representative (District ${lookupData.houseDistrict})`,
-        photo: (lookupData.houseRep as Record<string, unknown>).photo as string || "",
+        photo: rep.photo || "",
       });
     }
-    if (lookupData.senator) {
+    if (sen) {
       list.push({
-        name: lookupData.senator.name,
-        email: lookupData.senator.email,
+        name: sen.name,
+        email: sen.email,
         role: `Your State Senator (District ${lookupData.senateDistrict})`,
-        photo: (lookupData.senator as Record<string, unknown>).photo as string || "",
+        photo: sen.photo || "",
       });
     }
     list.push({
-      name: lookupData.leadership.houseSpeaker.name,
-      email: lookupData.leadership.houseSpeaker.email,
-      title: lookupData.leadership.houseSpeaker.title,
+      name: spk.name,
+      email: spk.email,
+      title: spk.title,
       role: "Speaker of the Ohio House",
-      photo: (lookupData.leadership.houseSpeaker as Record<string, unknown>).photo as string || "",
+      photo: spk.photo || "",
     });
     list.push({
-      name: lookupData.leadership.senatePresident.name,
-      email: lookupData.leadership.senatePresident.email,
-      title: lookupData.leadership.senatePresident.title,
+      name: pres.name,
+      email: pres.email,
+      title: pres.title,
       role: "President of the Ohio Senate",
-      photo: (lookupData.leadership.senatePresident as Record<string, unknown>).photo as string || "",
+      photo: pres.photo || "",
     });
 
     return list;
