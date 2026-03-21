@@ -90,7 +90,7 @@ export default function Home() {
   // Build the list of recipients
   const getRecipients = () => {
     if (!lookupData) return [];
-    const list: { name: string; email: string; title?: string; role: string }[] = [];
+    const list: { name: string; email: string; title?: string; role: string; photo?: string }[] = [];
 
     if (lookupData.houseRep) {
       list.push({
