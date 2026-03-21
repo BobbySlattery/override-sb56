@@ -326,27 +326,27 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             {/* NW Ohio (top-left) */}
             <div className="absolute text-center" style={{ top: "18%", left: "15%" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NW || 0}</div>
-              <div className="text-gray-700 text-xs font-bold">votes</div>
+              <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* NE Ohio (top-right) */}
             <div className="absolute text-center" style={{ top: "15%", right: "12%" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NE || 0}</div>
-              <div className="text-gray-700 text-xs font-bold">votes</div>
+              <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* Central Ohio (middle) */}
             <div className="absolute text-center" style={{ top: "42%", left: "42%" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.Central || 0}</div>
-              <div className="text-gray-700 text-xs font-bold">votes</div>
+              <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* SW Ohio (bottom-left) */}
             <div className="absolute text-center" style={{ bottom: "22%", left: "12%" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SW || 0}</div>
-              <div className="text-gray-700 text-xs font-bold">votes</div>
+              <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* SE Ohio (bottom-right) */}
-            <div className="absolute text-center" style={{ bottom: "18%", right: "15%" }}>
+            <div className="absolute text-center" style={{ bottom: "28%", right: "22%" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.SE || 0}</div>
-              <div className="text-gray-700 text-xs font-bold">votes</div>
+              <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
           </div>
         </div>
