@@ -196,11 +196,13 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
           {/* Brand logos */}
-          <div className="flex justify-center items-center gap-6 mb-6">
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-16 h-16" />
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-12 md:h-16" />
-            <div className="w-px h-12 bg-white opacity-30" />
-            <img src="https://drinkfuzzybones.com/cdn/shop/files/FuzzyBones_WORKING_MG_10_06_2025_b00bcd9a-9474-4e0f-8cb5-e70cf15f7639.png" alt="Fuzzy Bones" className="h-12 md:h-16" />
+          <div className="flex justify-center items-center gap-4 md:gap-6 mb-6 flex-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="Sunflower" className="w-14 h-14" />
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Untitled-8.png" alt="Sunflower THC Seltzer" className="h-10 md:h-14" />
+            <div className="w-px h-10 bg-white opacity-30 hidden md:block" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/FuzzyBones_WORKING_MG_10_06_2025_b00bcd9a-9474-4e0f-8cb5-e70cf15f7639.png" alt="Fuzzy Bones" className="h-10 md:h-14" />
+            <div className="w-px h-10 bg-white opacity-30 hidden md:block" />
+            <img src="https://thefloatshoppe.com/cdn/shop/files/GLBC-TheFloatShoppe_Logo-Horizontal_FullColor.png" alt="The Float Shoppe" className="h-10 md:h-14 bg-white rounded-lg px-2 py-1" />
           </div>
 
           <div className="text-center mb-8">
@@ -458,7 +460,9 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://drinkfuzzybones.com/cdn/shop/files/lemon-blueberry-fuzzy-bones-5.png" alt="Fuzzy Bones Lemon Blueberry" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://thefloatshoppe.com/cdn/shop/files/LemonLimeRickey-5MG-Icon.png" alt="Float Shoppe Lemon Lime Rickey" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="https://thefloatshoppe.com/cdn/shop/files/RootBeer-5MG-Icon.png" alt="Float Shoppe Root Beer" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://drinkfuzzybones.com/cdn/shop/files/blackberry-hibiscus-fuzzy-bones-5.png" alt="Fuzzy Bones Blackberry Hibiscus" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
         </div>
       </section>
