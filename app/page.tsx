@@ -324,12 +324,12 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/OhioMap.jpg" alt="Ohio Regions Map" className="w-full" />
             {/* Vote count overlays positioned over each region */}
             {/* NW Ohio (top-left) */}
-            <div className="absolute text-center" style={{ top: "24%", left: "22%", transform: "translate(-50%, -50%)" }}>
+            <div className="absolute text-center" style={{ top: "24%", left: "28%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NW || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
             {/* NE Ohio (top-right) */}
-            <div className="absolute text-center" style={{ top: "22%", left: "73%", transform: "translate(-50%, -50%)" }}>
+            <div className="absolute text-center" style={{ top: "28%", left: "73%", transform: "translate(-50%, -50%)" }}>
               <div className="font-extrabold text-2xl md:text-3xl" style={{ color: "#E8941A" }}>{voteData.regions.NE || 0}</div>
               <div className="text-gray-700 text-xs font-bold">supporters</div>
             </div>
