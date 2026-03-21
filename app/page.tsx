@@ -187,6 +187,20 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
+      {/* Brewery logo strip */}
+      <div className="bg-white py-5 border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex justify-center items-center gap-6 md:gap-10 flex-wrap">
+            <img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-12 md:h-16" />
+            <img src="https://www.greatlakesbrewing.com/wp-content/uploads/2026/03/glbc-logo-blue-large.svg" alt="Great Lakes Brewing" className="h-12 md:h-16" />
+            <img src="https://fiftywestbrew.com/wp-content/uploads/sites/90/2018/04/50W-Logo.png" alt="Fifty West" className="h-12 md:h-16" />
+            <img src="https://craftpeak-cooler-images.imgix.net/jackie-os-pub-brewery/Logo_Outline.png" alt="Jackie O's" className="h-12 md:h-16" />
+            <img src="https://artifactbeer.com/cdn/shop/files/UA2023-web-01_1000x.png" alt="Urban Artifact" className="h-12 md:h-16" />
+            <img src="https://static1.squarespace.com/static/51abeb0be4b08f6a770c06bf/t/682c9b3ab03574795392d2be/1747753786428/SeventhSon_Logo_Orange_Shield.png" alt="Seventh Son" className="h-12 md:h-16" />
+          </div>
+        </div>
+      </div>
+
       {/* Hero */}
       <header style={{ background: "linear-gradient(135deg, #F7A51C 0%, #E8941A 50%, #F7A51C 100%)" }} className="text-white relative overflow-hidden">
         {/* Sunflower smiley icons as decorative bg elements */}
@@ -195,15 +209,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-1/2 right-1/4 w-14 h-14 opacity-10 pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10">
-          {/* Brewery logos */}
-          <div className="flex justify-center items-center gap-3 md:gap-4 mb-6 flex-wrap">
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-8 md:h-10" /></div>
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://www.greatlakesbrewing.com/wp-content/uploads/2026/03/glbc-logo-blue-large.svg" alt="Great Lakes Brewing" className="h-8 md:h-10" /></div>
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://fiftywestbrew.com/wp-content/uploads/sites/90/2018/04/50W-Logo.png" alt="Fifty West" className="h-8 md:h-10" /></div>
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://craftpeak-cooler-images.imgix.net/jackie-os-pub-brewery/Logo_Outline.png" alt="Jackie O's" className="h-8 md:h-10" /></div>
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://artifactbeer.com/cdn/shop/files/UA2023-web-01_1000x.png" alt="Urban Artifact" className="h-8 md:h-10" /></div>
-            <div className="bg-white rounded-xl px-3 py-2 shadow-md"><img src="https://static1.squarespace.com/static/51abeb0be4b08f6a770c06bf/t/682c9b3ab03574795392d2be/1747753786428/SeventhSon_Logo_Orange_Shield.png" alt="Seventh Son" className="h-8 md:h-10" /></div>
-          </div>
 
           <div className="text-center mb-8">
             <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
