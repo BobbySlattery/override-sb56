@@ -285,8 +285,9 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
       {/* Info Bar */}
       <div style={{ backgroundColor: "#FFF7ED" }}>
-        <div className="max-w-3xl mx-auto px-6 py-4 text-center text-sm" style={{ color: "#92400E" }}>
-          Ohio lawmakers in the House and Senate did the work to create clear, common-sense rules for low-dose (5mg) THC beverages through Senate Bill 56. The bill established strict manufacturing oversight, required sales only to those 21 and older, and limited distribution to licensed establishments. It was a bipartisan effort shaped with input from regulators and industry leaders to bring an existing market into a safe, controlled system. However, when the bill reached Governor DeWine&apos;s desk, he used a line-item veto to remove all language in the bill pertaining to beverage provisions — overriding the intent of both the House and Senate. Now, the only way to restore what lawmakers already approved is for legislative leaders to bring an override vote to the floor.
+        <div className="max-w-3xl mx-auto px-6 py-8 text-center" style={{ color: "#92400E" }}>
+          <h2 className="text-3xl font-extrabold mb-4" style={{ color: "#92400E" }}>What Happened?</h2>
+          <p className="text-sm">Ohio lawmakers in the House and Senate did the work to create clear, common-sense rules for low-dose (5mg) THC beverages through Senate Bill 56. The bill established strict manufacturing oversight, required sales only to those 21 and older, and limited distribution to licensed establishments. It was a bipartisan effort shaped with input from regulators and industry leaders to bring an existing market into a safe, controlled system. However, when the bill reached Governor DeWine&apos;s desk, he used a line-item veto to remove all language in the bill pertaining to beverage provisions — overriding the intent of both the House and Senate. Now, the only way to restore what lawmakers already approved is for legislative leaders to bring an override vote to the floor.</p>
         </div>
       </div>
 
