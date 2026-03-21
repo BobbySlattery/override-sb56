@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 interface Legislator {
   district: number;
@@ -44,9 +44,7 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) {
         if (data.error === "not_ohio") {
-          setError(
-            "This tool is for Ohio residents. Your location doesn't appear to be in Ohio. If you believe this is an error, please try entering your address manually."
-          );
+          setError("This tool is for Ohio residents. Your location doesn\u2019t appear to be in Ohio.");
         } else {
           setError(data.error || data.message || "Failed to look up your district.");
         }
@@ -70,15 +68,11 @@ export default function Home() {
       return;
     }
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        doLookup(pos.coords.latitude, pos.coords.longitude);
-      },
+      (pos) => doLookup(pos.coords.latitude, pos.coords.longitude),
       (err) => {
         setLoading(false);
         if (err.code === err.PERMISSION_DENIED) {
-          setError(
-            "Location access was denied. Please allow location access in your browser settings, or use the address lookup below."
-          );
+          setError("Location access was denied. Please allow location access in your browser settings.");
         } else {
           setError("Could not determine your location. Please try again.");
         }
@@ -87,11 +81,9 @@ export default function Home() {
     );
   }, [doLookup]);
 
-  // Build the list of recipients
   const getRecipients = () => {
     if (!lookupData) return [];
     const list: { name: string; email: string; title?: string; role: string; photo?: string }[] = [];
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rep = lookupData.houseRep as any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -100,38 +92,10 @@ export default function Home() {
     const spk = lookupData.leadership.houseSpeaker as any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pres = lookupData.leadership.senatePresident as any;
-
-    if (rep) {
-      list.push({
-        name: rep.name,
-        email: rep.email,
-        role: `Your State Representative (District ${lookupData.houseDistrict})`,
-        photo: rep.photo || "",
-      });
-    }
-    if (sen) {
-      list.push({
-        name: sen.name,
-        email: sen.email,
-        role: `Your State Senator (District ${lookupData.senateDistrict})`,
-        photo: sen.photo || "",
-      });
-    }
-    list.push({
-      name: spk.name,
-      email: spk.email,
-      title: spk.title,
-      role: "Speaker of the Ohio House",
-      photo: spk.photo || "",
-    });
-    list.push({
-      name: pres.name,
-      email: pres.email,
-      title: pres.title,
-      role: "President of the Ohio Senate",
-      photo: pres.photo || "",
-    });
-
+    if (rep) list.push({ name: rep.name, email: rep.email, role: `Your State Representative (District ${lookupData.houseDistrict})`, photo: rep.photo || "" });
+    if (sen) list.push({ name: sen.name, email: sen.email, role: `Your State Senator (District ${lookupData.senateDistrict})`, photo: sen.photo || "" });
+    list.push({ name: spk.name, email: spk.email, title: spk.title, role: "Speaker of the Ohio House", photo: spk.photo || "" });
+    list.push({ name: pres.name, email: pres.email, title: pres.title, role: "President of the Ohio Senate", photo: pres.photo || "" });
     return list;
   };
 
@@ -142,96 +106,65 @@ export default function Home() {
     }
     setSending(true);
     setError(null);
-
-    const recipients = getRecipients().map((r) => ({
-      name: r.name,
-      email: r.email,
-      title: r.title,
-    }));
-
+    const recipients = getRecipients().map((r) => ({ name: r.name, email: r.email, title: r.title }));
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          senderName: senderName.trim(),
-          senderEmail: senderEmail.trim(),
-          senderAddress: senderAddress.trim(),
-          senderZip: senderZip.trim(),
-          recipients,
-          houseDistrict: lookupData?.houseDistrict,
-          senateDistrict: lookupData?.senateDistrict,
-        }),
+        body: JSON.stringify({ senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim(), senderZip: senderZip.trim(), recipients, houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict }),
       });
       const data = await res.json();
-      if (data.success) {
-        setSendResult(data.message);
-        setStep("done");
-      } else {
-        setError(data.error || "Failed to send emails. Please try the mailto option below.");
-      }
-    } catch {
-      setError("Network error sending emails. Please try the mailto option below.");
-    } finally {
-      setSending(false);
-    }
+      if (data.success) { setSendResult(data.message); setStep("done"); }
+      else setError(data.error || "Failed to send emails. Please try the mailto option below.");
+    } catch { setError("Network error sending emails. Please try the mailto option below."); }
+    finally { setSending(false); }
   };
 
-  // Build mailto fallback link
   const getMailtoLink = () => {
     const recipients = getRecipients();
     const toEmails = recipients.map((r) => r.email).join(",");
-    const subject = encodeURIComponent(
-      "Override Governor DeWine's Line-Item Veto of SB 56 THC Beverage Provisions"
-    );
-    const districtLine =
-      lookupData?.houseDistrict && lookupData?.senateDistrict
-        ? `As a resident of Ohio House District ${lookupData.houseDistrict} and Senate District ${lookupData.senateDistrict}`
-        : "As an Ohio resident";
+    const subject = encodeURIComponent("Override Governor DeWine\u2019s Line-Item Veto of SB 56 THC Beverage Provisions");
+    const districtLine = lookupData?.houseDistrict && lookupData?.senateDistrict
+      ? `As a resident of Ohio House District ${lookupData.houseDistrict} and Senate District ${lookupData.senateDistrict}`
+      : "As an Ohio resident";
+    const body = encodeURIComponent(`Dear Ohio Legislators,
 
-    const body = encodeURIComponent(
-      `Dear Ohio Legislators,
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
 
-${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
+The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine\u2019s line-item veto stripped 15 pages and 17 sections from the bill \u2014 fundamentally changing what the legislature voted on.
 
-The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine's line-item veto stripped 15 pages and 17 sections from the bill — fundamentally changing what the legislature voted on.
+Ohio\u2019s craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
 
-Ohio's craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
-
-The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
+The votes to override exist in both chambers. The only thing standing in the way is leadership\u2019s refusal to bring it to the floor.
 
 I respectfully ask that you publicly call for and support bringing the override vote to the floor.
 
 Sincerely,
 ${senderName || "[Your Name]"}
 ${senderAddress || "[Your Address]"}
-${senderZip || "[Your Zip]"}, Ohio`
-    );
-
+${senderZip || "[Your Zip]"}, Ohio`);
     return `mailto:${toEmails}?subject=${subject}&body=${body}`;
   };
 
   const previewEmailBody = () => {
-    const districtLine =
-      lookupData?.houseDistrict && lookupData?.senateDistrict
-        ? `As a resident of Ohio House District ${lookupData.houseDistrict} and Senate District ${lookupData.senateDistrict}`
-        : "As an Ohio resident";
-
+    const districtLine = lookupData?.houseDistrict && lookupData?.senateDistrict
+      ? `As a resident of Ohio House District ${lookupData.houseDistrict} and Senate District ${lookupData.senateDistrict}`
+      : "As an Ohio resident";
     return `Dear [Legislator Name],
 
-${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine's line-item veto of Senate Bill 56's THC beverage provisions to an override vote immediately.
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
 
-The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine's line-item veto stripped 15 pages and 17 sections from the bill — fundamentally changing what the legislature voted on. This was not a surgical line-item veto of an appropriation; it was a wholesale rewrite of policy that the legislature had deliberated and approved.
+The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine\u2019s line-item veto stripped 15 pages and 17 sections from the bill \u2014 fundamentally changing what the legislature voted on. This was not a surgical line-item veto of an appropriation; it was a wholesale rewrite of policy that the legislature had deliberated and approved.
 
 This matters because:
 
-- Ohio's craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
+- Ohio\u2019s craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
 
-- The legislature — not the Governor — sets policy in Ohio. Allowing this overreach to stand sets a dangerous precedent for executive power over the legislative process.
+- The legislature \u2014 not the Governor \u2014 sets policy in Ohio. Allowing this overreach to stand sets a dangerous precedent for executive power over the legislative process.
 
-- The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
+- The votes to override exist in both chambers. The only thing standing in the way is leadership\u2019s refusal to bring it to the floor.
 
-I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
+I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio\u2019s small businesses, workers, and the integrity of the legislative process depend on it.
 
 Thank you for your service to our state. I look forward to your response.
 
@@ -241,34 +174,50 @@ ${senderAddress || "[Your Address]"}
 ${senderZip || "[Your Zip]"}, Ohio`;
   };
 
+  // Wavy SVG divider
+  const WaveDivider = ({ flip, color }: { flip?: boolean; color: string }) => (
+    <div className={flip ? "rotate-180" : ""}>
+      <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none" style={{ height: "60px" }}>
+        <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill={color} />
+      </svg>
+    </div>
+  );
+
+  const inputClass = "w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-white";
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
       {/* Hero */}
-      <header className="bg-red-800 text-white">
-        <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-          <div className="text-sm font-semibold uppercase tracking-widest text-red-200 mb-4">
+      <header style={{ background: "linear-gradient(135deg, #F7A51C 0%, #E8941A 50%, #F7A51C 100%)" }} className="text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white" />
+          <div className="absolute top-20 right-20 w-20 h-20 rounded-full bg-white" />
+          <div className="absolute bottom-10 left-1/3 w-16 h-16 rounded-full bg-white" />
+        </div>
+        <div className="max-w-3xl mx-auto px-6 py-16 text-center relative z-10">
+          <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.8)" }}>
             Ohio Senate Bill 56
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             Override the Veto.
             <br />
-            <span className="text-amber-300">Protect Ohio's Small Businesses.</span>
+            <span className="text-gray-900">Protect Ohio&apos;s Small Businesses.</span>
           </h1>
-          <p className="text-lg md:text-xl text-red-100 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
             Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
             beverage provisions the legislature passed with bipartisan support.
-            <strong className="text-white">
-              {" "}
-              The votes to override exist. Leadership just needs to bring it to the
-              floor.
+            <strong className="text-white block mt-2">
+              The votes to override exist. Leadership just needs to bring it to the floor.
             </strong>
           </p>
         </div>
       </header>
 
+      <WaveDivider color="#FFF7ED" />
+
       {/* Info Bar */}
-      <div className="bg-amber-50 border-b border-amber-200">
-        <div className="max-w-3xl mx-auto px-6 py-4 text-center text-amber-900 text-sm">
+      <div style={{ backgroundColor: "#FFF7ED" }}>
+        <div className="max-w-3xl mx-auto px-6 py-4 text-center text-sm" style={{ color: "#92400E" }}>
           <strong>What happened:</strong> SB 56 created a regulatory framework for
           low-dose (5mg) THC beverages. Gov. DeWine vetoed every reference to it —
           overstepping his authority and undermining the legislative process. In order
@@ -277,15 +226,17 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         </div>
       </div>
 
+      <WaveDivider flip color="#FFF7ED" />
+
       {/* Main Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
         {/* Step 1: Locate */}
         {step === "locate" && (
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">
+            <h2 className="text-3xl font-extrabold mb-3 text-gray-900">
               Contact Your Representatives
             </h2>
-            <p className="text-stone-600 mb-8 max-w-xl mx-auto">
+            <p className="text-gray-500 mb-8 max-w-xl mx-auto text-lg">
               We&apos;ll identify your Ohio State House Rep and Senator, then send them
               — along with Speaker Huffman and Senate President McColley — a message
               urging them to bring the override vote to the floor.
@@ -294,28 +245,16 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <button
               onClick={handleGeolocate}
               disabled={loading}
-              className="bg-red-700 hover:bg-red-800 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="text-white font-bold px-10 py-4 rounded-full text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105"
+              style={{ backgroundColor: "#F7A51C" }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#DE9419")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F7A51C")}
             >
               {loading ? (
                 <span className="flex items-center gap-3">
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                    />
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                   Finding your representatives...
                 </span>
@@ -325,12 +264,12 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </button>
 
             {error && (
-              <div className="mt-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-800 text-sm max-w-md mx-auto">
+              <div className="mt-6 rounded-xl p-4 text-sm max-w-md mx-auto" style={{ backgroundColor: "#FEF2F2", color: "#A42325", border: "1px solid #FECACA" }}>
                 {error}
               </div>
             )}
 
-            <p className="mt-6 text-stone-400 text-xs">
+            <p className="mt-6 text-gray-400 text-xs">
               We use your browser location to identify your Ohio state legislative
               districts via the U.S. Census Bureau. Your location data is not stored.
             </p>
@@ -340,7 +279,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         {/* Step 2: Review recipients and compose */}
         {step === "review" && lookupData && (
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-center">
+            <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-900">
               Your Representatives
             </h2>
 
@@ -349,98 +288,63 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               {getRecipients().map((r, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-4 bg-white border border-stone-200 rounded-lg px-5 py-4 shadow-sm"
+                  className="flex items-center gap-4 rounded-2xl px-5 py-4 shadow-sm transition-all hover:shadow-md"
+                  style={{ backgroundColor: "#FFF7ED", border: "2px solid #FDE68A" }}
                 >
                   {r.photo && (
                     <img
                       src={r.photo}
                       alt={r.name}
-                      className="w-14 h-14 rounded-full object-cover flex-shrink-0 border-2 border-stone-200"
+                      className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+                      style={{ border: "3px solid #F7A51C" }}
                     />
                   )}
                   <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-stone-900">{r.name}</div>
-                    <div className="text-sm text-stone-500">{r.role}</div>
+                    <div className="font-bold text-gray-900 text-lg">{r.name}</div>
+                    <div className="text-sm" style={{ color: "#92400E" }}>{r.role}</div>
                   </div>
-                  <div className="text-sm text-stone-400 hidden sm:block">{r.email}</div>
+                  <div className="text-sm text-gray-400 hidden sm:block">{r.email}</div>
                 </div>
               ))}
             </div>
 
             {/* Sender info form */}
-            <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm mb-6">
-              <h3 className="font-semibold text-lg mb-4">Your Information</h3>
+            <div className="rounded-2xl p-6 shadow-sm mb-6" style={{ backgroundColor: "#FFFBEB", border: "2px solid #FDE68A" }}>
+              <h3 className="font-bold text-lg mb-4 text-gray-900">Your Information</h3>
               <div className="grid gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={senderName}
-                    onChange={(e) => setSenderName(e.target.value)}
-                    placeholder="Jane Smith"
-                    className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+                  <input type="text" value={senderName} onChange={(e) => setSenderName(e.target.value)} placeholder="Jane Smith" className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    value={senderEmail}
-                    onChange={(e) => setSenderEmail(e.target.value)}
-                    placeholder="jane@example.com"
-                    className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+                  <input type="email" value={senderEmail} onChange={(e) => setSenderEmail(e.target.value)} placeholder="jane@example.com" className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Home Address
-                  </label>
-                  <input
-                    type="text"
-                    value={senderAddress}
-                    onChange={(e) => setSenderAddress(e.target.value)}
-                    placeholder="123 Main St, Cincinnati"
-                    className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Home Address</label>
+                  <input type="text" value={senderAddress} onChange={(e) => setSenderAddress(e.target.value)} placeholder="123 Main St, Cincinnati" className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Zip Code
-                  </label>
-                  <input
-                    type="text"
-                    value={senderZip}
-                    onChange={(e) => setSenderZip(e.target.value)}
-                    placeholder="45202"
-                    className="w-full border border-stone-300 rounded-md px-4 py-2.5 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Zip Code</label>
+                  <input type="text" value={senderZip} onChange={(e) => setSenderZip(e.target.value)} placeholder="45202" className={inputClass} />
                 </div>
               </div>
             </div>
 
             {/* Preview toggle */}
             <div className="mb-6">
-              <button
-                onClick={() => setEmailPreview(!emailPreview)}
-                className="text-sm text-red-700 hover:text-red-900 font-medium underline underline-offset-2"
-              >
+              <button onClick={() => setEmailPreview(!emailPreview)} className="text-sm font-semibold underline underline-offset-2" style={{ color: "#B45309" }}>
                 {emailPreview ? "Hide email preview" : "Preview the email that will be sent"}
               </button>
               {emailPreview && (
-                <div className="mt-3 bg-stone-100 border border-stone-200 rounded-lg p-5">
-                  <pre className="whitespace-pre-wrap text-sm text-stone-700 font-sans leading-relaxed">
-                    {previewEmailBody()}
-                  </pre>
+                <div className="mt-3 rounded-xl p-5" style={{ backgroundColor: "#FFF7ED", border: "1px solid #FDE68A" }}>
+                  <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">{previewEmailBody()}</pre>
                 </div>
               )}
             </div>
 
             {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-800 text-sm">
+              <div className="mb-6 rounded-xl p-4 text-sm" style={{ backgroundColor: "#FEF2F2", color: "#A42325", border: "1px solid #FECACA" }}>
                 {error}
               </div>
             )}
@@ -450,25 +354,25 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               <button
                 onClick={handleSendEmails}
                 disabled={sending}
-                className="flex-1 bg-red-700 hover:bg-red-800 text-white font-semibold px-6 py-3.5 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-center"
+                className="flex-1 text-white font-bold px-6 py-4 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105 text-center text-lg"
+                style={{ backgroundColor: "#F7A51C" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#DE9419")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F7A51C")}
               >
                 {sending ? "Sending..." : "Send Emails Now"}
               </button>
               <a
                 href={getMailtoLink()}
-                className="flex-1 bg-white hover:bg-stone-50 text-stone-700 font-semibold px-6 py-3.5 rounded-lg border border-stone-300 transition-colors text-center shadow-sm"
+                className="flex-1 font-bold px-6 py-4 rounded-full transition-all text-center text-lg hover:shadow-md"
+                style={{ backgroundColor: "white", color: "#B45309", border: "2px solid #F7A51C" }}
               >
                 Open in My Email App
               </a>
             </div>
 
             <button
-              onClick={() => {
-                setStep("locate");
-                setLookupData(null);
-                setError(null);
-              }}
-              className="mt-4 text-sm text-stone-400 hover:text-stone-600 w-full text-center"
+              onClick={() => { setStep("locate"); setLookupData(null); setError(null); }}
+              className="mt-4 text-sm text-gray-400 hover:text-gray-600 w-full text-center"
             >
               Start over with a different location
             </button>
@@ -478,26 +382,15 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         {/* Step 3: Done */}
         {step === "done" && (
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6">
-              <svg
-                className="w-8 h-8 text-green-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: "#D9F99D" }}>
+              <svg className="w-10 h-10" style={{ color: "#65A30D" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold mb-3">Emails Sent!</h2>
-            <p className="text-stone-600 mb-2">{sendResult}</p>
-            <p className="text-stone-500 text-sm mb-8 max-w-md mx-auto">
-              Your voice matters. Share this page with friends, family, and
-              coworkers across Ohio to amplify the pressure on leadership.
+            <h2 className="text-3xl font-extrabold mb-3 text-gray-900">Emails Sent!</h2>
+            <p className="text-gray-600 mb-2">{sendResult}</p>
+            <p className="text-gray-500 text-sm mb-8 max-w-md mx-auto">
+              Your voice matters. Share this page with friends, family, and coworkers across Ohio to amplify the pressure on leadership.
             </p>
 
             {/* Share buttons */}
@@ -505,55 +398,35 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               <button
                 onClick={() => {
                   const url = window.location.href;
-                  const text =
-                    "Ohio legislators can override DeWine's SB 56 veto — the votes exist. Leadership just needs to bring it to the floor. Contact your reps:";
-                  window.open(
-                    `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      text
-                    )}&url=${encodeURIComponent(url)}`,
-                    "_blank"
-                  );
+                  const text = "Ohio legislators can override DeWine\u2019s SB 56 veto \u2014 the votes exist. Leadership just needs to bring it to the floor. Contact your reps:";
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, "_blank");
                 }}
-                className="px-6 py-2.5 bg-stone-800 text-white rounded-lg font-medium hover:bg-stone-900 transition-colors"
+                className="px-6 py-3 bg-gray-900 text-white rounded-full font-bold hover:bg-black transition-colors"
               >
                 Share on X
               </button>
               <button
                 onClick={() => {
                   const url = window.location.href;
-                  window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      url
-                    )}`,
-                    "_blank"
-                  );
+                  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
                 }}
-                className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 rounded-full font-bold text-white transition-colors"
+                style={{ backgroundColor: "#1877F2" }}
               >
                 Share on Facebook
               </button>
               <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                }}
-                className="px-6 py-2.5 bg-white text-stone-700 border border-stone-300 rounded-lg font-medium hover:bg-stone-50 transition-colors"
+                onClick={() => navigator.clipboard.writeText(window.location.href)}
+                className="px-6 py-3 bg-white text-gray-700 rounded-full font-bold transition-colors"
+                style={{ border: "2px solid #E5E7EB" }}
               >
                 Copy Link
               </button>
             </div>
 
             <button
-              onClick={() => {
-                setStep("locate");
-                setLookupData(null);
-                setSenderName("");
-                setSenderEmail("");
-                setSenderAddress("");
-                setSenderZip("");
-                setSendResult(null);
-                setError(null);
-              }}
-              className="text-sm text-stone-400 hover:text-stone-600"
+              onClick={() => { setStep("locate"); setLookupData(null); setSenderName(""); setSenderEmail(""); setSenderAddress(""); setSenderZip(""); setSendResult(null); setError(null); }}
+              className="text-sm text-gray-400 hover:text-gray-600"
             >
               Send more emails from a different location
             </button>
@@ -562,34 +435,30 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       </main>
 
       {/* Facts section */}
-      <section className="bg-white border-t border-stone-200">
+      <WaveDivider color="#F7A51C" />
+      <section style={{ backgroundColor: "#F7A51C" }}>
         <div className="max-w-3xl mx-auto px-6 py-12">
-          <h2 className="text-xl font-bold mb-6 text-center">The Facts</h2>
+          <h2 className="text-2xl font-extrabold mb-8 text-center text-white">The Facts</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-700 mb-2">15</div>
-              <div className="text-sm text-stone-600">
-                Pages of legislation deleted by DeWine&apos;s line-item veto
-              </div>
+            <div className="text-center bg-white rounded-2xl p-6 shadow-md">
+              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>15</div>
+              <div className="text-sm text-gray-600">Pages of legislation deleted by DeWine&apos;s line-item veto</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-700 mb-2">17</div>
-              <div className="text-sm text-stone-600">
-                Sections of SB 56 stripped from the bill
-              </div>
+            <div className="text-center bg-white rounded-2xl p-6 shadow-md">
+              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>17</div>
+              <div className="text-sm text-gray-600">Sections of SB 56 stripped from the bill</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-700 mb-2">5mg</div>
-              <div className="text-sm text-stone-600">
-                Low-dose THC beverages that would have been regulated — not banned
-              </div>
+            <div className="text-center bg-white rounded-2xl p-6 shadow-md">
+              <div className="text-4xl font-extrabold mb-2" style={{ color: "#A42325" }}>5mg</div>
+              <div className="text-sm text-gray-600">Low-dose THC beverages that would have been regulated — not banned</div>
             </div>
           </div>
         </div>
       </section>
+      <WaveDivider flip color="#F7A51C" />
 
       {/* Footer */}
-      <footer className="bg-stone-800 text-stone-400">
+      <footer className="bg-gray-900 text-gray-400">
         <div className="max-w-3xl mx-auto px-6 py-8 text-center text-sm">
           <p className="mb-2">
             This is a civic engagement tool. Your location is used solely to identify
