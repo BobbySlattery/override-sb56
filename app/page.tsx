@@ -604,7 +604,9 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <img src="https://thefloatshoppe.com/cdn/shop/files/RootBeer-5MG-Icon.png" alt="Float Shoppe Root Beer" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://drinkfuzzybones.com/cdn/shop/files/blackberry-hibiscus-fuzzy-bones-5.png" alt="Fuzzy Bones Blackberry Hibiscus" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://soberish.com/cdn/shop/files/Untitled_design_42.png" alt="Coastalo Red Cream Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="/images/greenbuddy-peach.jpg" alt="Green Buddy Peach THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://soberish.com/cdn/shop/files/Untitled_design_37.png" alt="Coastalo Grape Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="/images/greenbuddy-blueberry.jpg" alt="Green Buddy Wild Blueberry THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
         </div>
       </section>
 
