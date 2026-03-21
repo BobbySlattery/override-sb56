@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 interface EmailPayload {
   senderName: string;
@@ -70,31 +70,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Configure nodemailer transporter
-    // Supports SMTP (Gmail, SendGrid, etc.) via environment variables
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = parseInt(process.env.SMTP_PORT || "587");
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const fromEmail = process.env.FROM_EMAIL || smtpUser;
-
-    if (!smtpHost || !smtpUser || !smtpPass) {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
       return NextResponse.json(
-        { error: "Email service not configured. Please set SMTP environment variables." },
+        { error: "Email service not configured. Please set RESEND_API_KEY environment variable." },
         { status: 500 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
-
+    const resend = new Resend(resendApiKey);
+    const fromEmail = process.env.FROM_EMAIL || "noreply@overridetheveto.com";
     const results = [];
 
     for (const recipient of recipients) {
@@ -109,9 +94,9 @@ export async function POST(request: NextRequest) {
       );
 
       try {
-        await transporter.sendMail({
-          from: `"${senderName}" <${fromEmail}>`,
-          to: recipient.email,
+        await resend.emails.send({
+          from: `${senderName} <${fromEmail}>`,
+          to: [recipient.email],
           replyTo: senderEmail,
           subject:
             "Override Governor DeWine's Line-Item Veto of SB 56 THC Beverage Provisions",
