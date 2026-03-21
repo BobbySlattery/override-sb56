@@ -36,7 +36,7 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
-  const [voteData, setVoteData] = useState<{ total: number; quadrants: Record<string, number>; goal: number }>({ total: 0, quadrants: { NW: 0, NE: 0, SW: 0, SE: 0 }, goal: 1000 });
+  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 1000 });
 
   // Fetch vote counts on load
   useEffect(() => {
@@ -323,39 +323,45 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </div>
           </div>
 
-          {/* Ohio map with quadrants */}
-          <div className="relative max-w-lg mx-auto">
-            <svg viewBox="0 0 400 350" className="w-full" xmlns="http://www.w3.org/2000/svg">
-              {/* Simplified Ohio outline */}
-              <path
-                d="M80,30 L120,15 L160,10 L200,8 L240,12 L270,18 L300,30 L330,25 L355,40 L370,60 L365,90 L350,120 L340,150 L335,180 L345,210 L350,240 L340,270 L320,290 L290,310 L260,320 L230,325 L200,330 L170,325 L140,315 L110,300 L85,280 L70,255 L60,225 L55,195 L50,165 L55,135 L60,105 L65,75 L70,50 Z"
-                fill="none"
-                stroke="#D1D5DB"
-                strokeWidth="2"
-              />
-              {/* Quadrant dividers */}
-              <line x1="200" y1="8" x2="200" y2="330" stroke="#E5E7EB" strokeWidth="1" strokeDasharray="6,4" />
-              <line x1="50" y1="170" x2="370" y2="170" stroke="#E5E7EB" strokeWidth="1" strokeDasharray="6,4" />
+          {/* Ohio map with 5 regions */}
+          <div className="relative max-w-xl mx-auto">
+            <svg viewBox="0 0 500 450" className="w-full" xmlns="http://www.w3.org/2000/svg">
+              {/* NW Ohio - Orange */}
+              <path d="M30,25 L30,200 L140,200 L140,140 L175,140 L175,25 Z" fill="#F7941D" stroke="white" strokeWidth="2" opacity="0.85" />
+              {/* NE Ohio - Blue */}
+              <path d="M175,25 L175,140 L250,140 L250,50 L280,45 L310,35 L340,28 L370,15 L400,10 L430,18 L455,30 L470,55 L465,85 L458,115 L450,140 L350,140 L350,200 L175,200 L175,140 Z" fill="#2196F3" stroke="white" strokeWidth="2" opacity="0.85" />
+              {/* Central Ohio - Red */}
+              <path d="M140,140 L140,200 L175,200 L350,200 L350,140 L450,140 L440,170 L430,200 L420,230 L350,230 L350,310 L200,310 L140,310 L140,200 Z" fill="#E53935" stroke="white" strokeWidth="2" opacity="0.85" />
+              {/* SW Ohio - Gold/Yellow */}
+              <path d="M30,200 L140,200 L140,310 L140,360 L100,390 L60,410 L30,400 L20,360 L20,310 L25,260 Z" fill="#FFC107" stroke="white" strokeWidth="2" opacity="0.85" />
+              {/* SE Ohio - Green */}
+              <path d="M140,310 L200,310 L350,310 L350,230 L420,230 L430,260 L435,290 L430,320 L415,350 L395,375 L370,395 L340,410 L310,420 L280,425 L250,430 L220,425 L190,415 L160,400 L140,380 L140,360 Z" fill="#4CAF50" stroke="white" strokeWidth="2" opacity="0.85" />
 
-              {/* NW quadrant */}
-              <text x="120" y="80" textAnchor="middle" className="text-sm font-bold" fill="#92400E">NW Ohio</text>
-              <text x="120" y="110" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.NW || 0}</text>
-              <text x="120" y="130" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+              {/* Region labels with vote counts */}
+              {/* NW */}
+              <text x="100" y="95" textAnchor="middle" fill="white" fontWeight="800" fontSize="14">NW Ohio</text>
+              <text x="100" y="125" textAnchor="middle" fill="white" fontWeight="900" fontSize="28">{voteData.regions.NW || 0}</text>
+              <text x="100" y="142" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10">votes</text>
 
-              {/* NE quadrant */}
-              <text x="280" y="80" textAnchor="middle" className="text-sm font-bold" fill="#92400E">NE Ohio</text>
-              <text x="280" y="110" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.NE || 0}</text>
-              <text x="280" y="130" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+              {/* NE */}
+              <text x="350" y="75" textAnchor="middle" fill="white" fontWeight="800" fontSize="14">NE Ohio</text>
+              <text x="350" y="105" textAnchor="middle" fill="white" fontWeight="900" fontSize="28">{voteData.regions.NE || 0}</text>
+              <text x="350" y="122" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10">votes</text>
 
-              {/* SW quadrant */}
-              <text x="120" y="220" textAnchor="middle" className="text-sm font-bold" fill="#92400E">SW Ohio</text>
-              <text x="120" y="250" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.SW || 0}</text>
-              <text x="120" y="270" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+              {/* Central */}
+              <text x="280" y="210" textAnchor="middle" fill="white" fontWeight="800" fontSize="14">Central Ohio</text>
+              <text x="280" y="245" textAnchor="middle" fill="white" fontWeight="900" fontSize="28">{voteData.regions.Central || 0}</text>
+              <text x="280" y="262" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10">votes</text>
 
-              {/* SE quadrant */}
-              <text x="280" y="220" textAnchor="middle" className="text-sm font-bold" fill="#92400E">SE Ohio</text>
-              <text x="280" y="250" textAnchor="middle" className="text-3xl font-extrabold" fill="#F7A51C" fontSize="32">{voteData.quadrants.SE || 0}</text>
-              <text x="280" y="270" textAnchor="middle" className="text-xs" fill="#9CA3AF" fontSize="11">votes</text>
+              {/* SW */}
+              <text x="85" y="280" textAnchor="middle" fill="white" fontWeight="800" fontSize="14">SW Ohio</text>
+              <text x="85" y="310" textAnchor="middle" fill="white" fontWeight="900" fontSize="28">{voteData.regions.SW || 0}</text>
+              <text x="85" y="327" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10">votes</text>
+
+              {/* SE */}
+              <text x="310" y="340" textAnchor="middle" fill="white" fontWeight="800" fontSize="14">SE Ohio</text>
+              <text x="310" y="370" textAnchor="middle" fill="white" fontWeight="900" fontSize="28">{voteData.regions.SE || 0}</text>
+              <text x="310" y="387" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10">votes</text>
             </svg>
           </div>
         </div>
