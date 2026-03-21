@@ -223,11 +223,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </p>
           </div>
 
-          {/* Product cans - both brands */}
-          <div className="flex justify-center items-end gap-4 md:gap-6">
-            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/LT_1263.png" alt="Sunflower THC Seltzer" className="w-40 md:w-56 rounded-2xl shadow-2xl" />
-            <img src="https://drinkfuzzybones.com/cdn/shop/files/all3_277b8f39-cfb4-44d0-8cc1-6d1725f087c4.webp" alt="Fuzzy Bones THC Beverages" className="w-48 md:w-64 rounded-2xl shadow-2xl" />
-          </div>
         </div>
       </header>
 
