@@ -918,6 +918,19 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               </div>
             </form>
           ) : null}
+
+          {/* Printable Flyer Link */}
+          <div className="text-center mt-6">
+            <a
+              href="/flyer.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-5 py-2 rounded-full text-sm font-bold transition-colors"
+              style={{ backgroundColor: "#F7A51C", color: "white" }}
+            >
+              Printable Call to Action Flyer
+            </a>
+          </div>
         </div>
       </section>
 
@@ -932,15 +945,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             District data provided by the U.S. Census Bureau. Legislator information
             from the Ohio General Assembly.
           </p>
-          <a
-            href="/flyer.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 px-5 py-2 rounded-full text-sm font-bold transition-colors"
-            style={{ backgroundColor: "#F7A51C", color: "white" }}
-          >
-            Download Printable Flyer (PDF)
-          </a>
         </div>
       </footer>
     </div>
