@@ -15,6 +15,15 @@ interface EmailPayload {
   senateDistrict: number | null;
 }
 
+// ═══════════════════════════════════════════════════════
+// TESTING MODE — set to false to send to real recipients
+// ═══════════════════════════════════════════════════════
+const TESTING_MODE = true;
+const TEST_RECIPIENTS = [
+  "bobbyslattery@gmail.com",
+  "bobby.slattery@fiftywestbrew.com",
+];
+
 function buildEmailBody(
   senderName: string,
   senderAddress: string,
@@ -57,6 +66,67 @@ ${senderAddress}
 ${senderZip}, Ohio`;
 }
 
+function buildConfirmationEmail(
+  senderName: string,
+  recipients: { name: string; email: string; title?: string }[],
+  houseDistrict: number | null,
+  senateDistrict: number | null
+): string {
+  const siteUrl = "https://saveohiobevs.com";
+  const shareText = encodeURIComponent("Ohio's THC beverage industry needs your help. Contact your reps and demand leadership bring the override vote to the floor. It takes 2 minutes.");
+  const shareUrl = encodeURIComponent(siteUrl);
+
+  const recipientList = recipients
+    .map((r) => `  - ${r.title ? r.title + " " : ""}${r.name}`)
+    .join("\n");
+
+  return `Hi ${senderName},
+
+Thank you for making your voice heard! Your emails have been sent to the following representatives:
+
+${recipientList}
+
+════════════════════════════════════════
+TAKE IT A STEP FURTHER — CALL THEM
+════════════════════════════════════════
+
+A phone call makes an even bigger impact. Call and leave a brief message asking leadership to bring the override vote to the floor.
+
+Ohio House Switchboard: (614) 466-4857
+  → Ask for your Representative${houseDistrict ? ` (District ${houseDistrict})` : ""} by name
+
+Ohio Senate Switchboard: (614) 466-4900
+  → Ask for your Senator${senateDistrict ? ` (District ${senateDistrict})` : ""} by name
+
+Speaker Huffman's Office: (614) 466-1482
+Senate President McColley's Office: (614) 466-4900
+
+Sample message: "Hi, I'm calling to urge [Representative/Senator name] to support bringing the SB 56 override vote to the floor. Ohio's craft beverage industry and hundreds of jobs depend on it. Thank you."
+
+════════════════════════════════════════
+SPREAD THE WORD
+════════════════════════════════════════
+
+The more voices, the louder the message. Share with your friends and family:
+
+Facebook:
+https://www.facebook.com/sharer/sharer.php?u=${shareUrl}
+
+X (Twitter):
+https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}
+
+Instagram:
+Share saveohiobevs.com in your story or bio — screenshot the site and tag friends!
+
+Email a friend:
+mailto:?subject=${encodeURIComponent("Help Save Ohio's THC Beverage Industry")}&body=${encodeURIComponent(`Hey — Ohio's THC beverage industry is under threat from Governor DeWine's veto. You can contact your reps in under 2 minutes at ${siteUrl}. Please take a look!`)}
+
+Together, we can make sure leadership hears us loud and clear.
+
+— The SaveOhioBevs Team
+saveohiobevs.com`;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const payload: EmailPayload = await request.json();
@@ -79,7 +149,7 @@ export async function POST(request: NextRequest) {
     }
 
     const resend = new Resend(resendApiKey);
-    const fromEmail = process.env.FROM_EMAIL || "noreply@overridetheveto.com";
+    const fromEmail = process.env.FROM_EMAIL || "bobby@50westbrew.com";
     const results = [];
 
     for (const recipient of recipients) {
@@ -93,13 +163,17 @@ export async function POST(request: NextRequest) {
         senateDistrict
       );
 
+      // In testing mode, send to test recipients instead of real ones
+      const toAddresses = TESTING_MODE ? TEST_RECIPIENTS : [recipient.email];
+
       try {
         await resend.emails.send({
-          from: `${senderName} <${fromEmail}>`,
-          to: [recipient.email],
+          from: `${senderName} via SaveOhioBevs <${fromEmail}>`,
+          to: toAddresses,
           replyTo: senderEmail,
-          subject:
-            "Override Governor DeWine's Line-Item Veto of SB 56 THC Beverage Provisions",
+          subject: TESTING_MODE
+            ? `[TEST - intended for ${recipient.email}] Override Governor DeWine's Line-Item Veto of SB 56`
+            : "Override Governor DeWine's Line-Item Veto of SB 56 THC Beverage Provisions",
           text: body,
         });
         results.push({ email: recipient.email, status: "sent" });
@@ -107,6 +181,26 @@ export async function POST(request: NextRequest) {
         console.error(`Failed to send to ${recipient.email}:`, err);
         results.push({ email: recipient.email, status: "failed" });
       }
+    }
+
+    // Send confirmation email to the sender
+    try {
+      const confirmationBody = buildConfirmationEmail(
+        senderName,
+        recipients,
+        houseDistrict,
+        senateDistrict
+      );
+
+      await resend.emails.send({
+        from: `SaveOhioBevs <${fromEmail}>`,
+        to: TESTING_MODE ? TEST_RECIPIENTS : [senderEmail],
+        subject: "You made your voice heard — here's how to do even more",
+        text: confirmationBody,
+      });
+    } catch (err) {
+      console.error("Failed to send confirmation email:", err);
+      // Don't fail the whole request if confirmation fails
     }
 
     const sentCount = results.filter((r) => r.status === "sent").length;
