@@ -719,9 +719,9 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       {/* Product photo strip - both brands */}
       <section className="py-8" style={{ backgroundColor: "#FFF7ED" }}>
         <h3 className="text-center font-extrabold text-xl text-gray-900 mb-6">Ohio Made Products at Risk</h3>
-        {/* Swipeable on mobile, wrapping grid on desktop */}
-        <div className="overflow-x-auto md:overflow-visible px-4 md:px-6 -mx-0 md:mx-auto max-w-5xl" style={{ WebkitOverflowScrolling: "touch" }}>
-          <div className="flex gap-4 md:flex-wrap md:justify-center w-max md:w-auto px-2 md:px-0 pb-4 md:pb-0">
+        {/* Grid of 4 on desktop, swipeable on mobile */}
+        <div className="overflow-x-auto md:overflow-visible px-4 md:px-6 md:mx-auto max-w-3xl" style={{ WebkitOverflowScrolling: "touch" }}>
+          <div className="flex gap-4 md:grid md:grid-cols-4 md:gap-4 md:justify-items-center w-max md:w-auto px-2 md:px-0 pb-4 md:pb-0">
             <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
