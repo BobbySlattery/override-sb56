@@ -894,7 +894,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                   required
                 />
                 <label htmlFor="bizAgree" className="text-sm text-gray-600">
-                  I approve of my business being listed as a participant in the Override SB 56 campaign and consent to being contacted about next steps.
+                  I approve of my business being listed as a participant in the SaveOhioBevs campaign and consent to being contacted about next steps.
                 </label>
               </div>
 
