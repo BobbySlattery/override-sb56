@@ -509,8 +509,13 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                 {sending ? "Sending..." : "Send Emails Now"}
               </button>
               <a
-                href={getMailtoLink()}
-                onClick={() => {
+                href={(!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) ? "#" : getMailtoLink()}
+                onClick={(e) => {
+                  if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) {
+                    e.preventDefault();
+                    setError("Please fill in your name, email, address, and zip code above.");
+                    return;
+                  }
                   fetch("/api/vote", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
