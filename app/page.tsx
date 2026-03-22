@@ -759,8 +759,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       {/* Facts section */}
       <WaveDivider color="#F7A51C" />
       <section style={{ backgroundColor: "#F7A51C" }} className="relative overflow-hidden">
-        {/* Decorative smiley */}
-        <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/Sunflower_Website_Icons-05.png" alt="" className="absolute top-4 right-8 w-16 h-16 opacity-20 pointer-events-none" />
         <div className="max-w-3xl mx-auto px-6 py-12 relative z-10">
           <h2 className="text-2xl font-extrabold mb-8 text-center text-white">The Facts</h2>
           <div className="grid md:grid-cols-4 gap-6">
