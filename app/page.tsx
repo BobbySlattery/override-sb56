@@ -257,8 +257,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-16 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-20 md:h-24" />
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-12 md:h-16" />
-            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-12 md:h-16" />
-            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-12 md:h-16" />
+            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-16 md:h-20" />
+            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-16 md:h-20" />
           </div>
         </div>
       </div>
