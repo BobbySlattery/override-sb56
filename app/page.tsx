@@ -712,26 +712,29 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       </main>
 
       {/* Product photo strip - both brands */}
-      <section className="overflow-hidden py-8" style={{ backgroundColor: "#FFF7ED" }}>
+      <section className="py-8" style={{ backgroundColor: "#FFF7ED" }}>
         <h3 className="text-center font-extrabold text-xl text-gray-900 mb-6">Ohio Made Products at Risk</h3>
-        <div className="flex gap-4 justify-center items-center flex-wrap max-w-5xl mx-auto px-6">
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://drinkfuzzybones.com/cdn/shop/files/lemon-blueberry-fuzzy-bones-5.png" alt="Fuzzy Bones Lemon Blueberry" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://thefloatshoppe.com/cdn/shop/files/LemonLimeRickey-5MG-Icon.png" alt="Float Shoppe Lemon Lime Rickey" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://thefloatshoppe.com/cdn/shop/files/RootBeer-5MG-Icon.png" alt="Float Shoppe Root Beer" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://drinkfuzzybones.com/cdn/shop/files/blackberry-hibiscus-fuzzy-bones-5.png" alt="Fuzzy Bones Blackberry Hibiscus" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://soberish.com/cdn/shop/files/Untitled_design_42.png" alt="Coastalo Red Cream Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/greenbuddy-peach.jpg" alt="Green Buddy Peach THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="https://soberish.com/cdn/shop/files/Untitled_design_37.png" alt="Coastalo Grape Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/greenbuddy-blueberry.jpg" alt="Green Buddy Wild Blueberry THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/JackieOs.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/JackieOs2.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/4Pack-Cans_FloatShoppe-LemonLimeRickey-5mg_2000px_4b0cf354-80a9-437c-86a0-4784619c136d.jpg" alt="Float Shoppe 4-Pack" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/Estazzi.jpeg" alt="Estazzi" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
-          <img src="/images/Estazzi2.png" alt="Estazzi" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+        {/* Swipeable on mobile, wrapping grid on desktop */}
+        <div className="overflow-x-auto md:overflow-visible px-4 md:px-6 -mx-0 md:mx-auto max-w-5xl" style={{ WebkitOverflowScrolling: "touch" }}>
+          <div className="flex gap-4 md:flex-wrap md:justify-center w-max md:w-auto px-2 md:px-0 pb-4 md:pb-0">
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/3_5e7367c5-4417-4241-89a7-3badcbfd1bf9.jpg" alt="Sunflower Seltzers" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/lemon-blueberry-fuzzy-bones-5.png" alt="Fuzzy Bones Lemon Blueberry" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://thefloatshoppe.com/cdn/shop/files/LemonLimeRickey-5MG-Icon.png" alt="Float Shoppe Lemon Lime Rickey" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/1_69e12bac-79b1-494d-9d0d-687fcd416453.jpg" alt="Sunflower Seltzers" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://thefloatshoppe.com/cdn/shop/files/RootBeer-5MG-Icon.png" alt="Float Shoppe Root Beer" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://drinkfuzzybones.com/cdn/shop/files/blackberry-hibiscus-fuzzy-bones-5.png" alt="Fuzzy Bones Blackberry Hibiscus" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://soberish.com/cdn/shop/files/Untitled_design_42.png" alt="Coastalo Red Cream Soda" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/greenbuddy-peach.jpg" alt="Green Buddy Peach THC Soda" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="https://soberish.com/cdn/shop/files/Untitled_design_37.png" alt="Coastalo Grape Soda" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/greenbuddy-blueberry.jpg" alt="Green Buddy Wild Blueberry THC Soda" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/JackieOs.jpg" alt="Jackie O's" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/JackieOs2.jpg" alt="Jackie O's" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/4Pack-Cans_FloatShoppe-LemonLimeRickey-5mg_2000px_4b0cf354-80a9-437c-86a0-4784619c136d.jpg" alt="Float Shoppe 4-Pack" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/Estazzi.jpeg" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/Estazzi2.png" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+          </div>
         </div>
       </section>
 
