@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 interface Legislator {
   district: number;
@@ -48,6 +48,16 @@ export default function Home() {
   const [bizSubmitting, setBizSubmitting] = useState(false);
   const [bizResult, setBizResult] = useState<string | null>(null);
   const [showBizForm, setShowBizForm] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+
+  // Scroll to results when step changes
+  useEffect(() => {
+    if (step === "review" || step === "done") {
+      setTimeout(() => {
+        mainRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, [step]);
 
   // Fetch vote counts on load
   useEffect(() => {
@@ -449,7 +459,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       </section>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto px-6 py-12">
+      <main ref={mainRef} className="max-w-3xl mx-auto px-6 py-12">
         {/* Step 1: Locate */}
         {step === "locate" && (
           <div className="text-center">
