@@ -47,6 +47,7 @@ export default function Home() {
   const [bizAgree, setBizAgree] = useState(false);
   const [bizSubmitting, setBizSubmitting] = useState(false);
   const [bizResult, setBizResult] = useState<string | null>(null);
+  const [showBizForm, setShowBizForm] = useState(false);
 
   // Fetch vote counts on load
   useEffect(() => {
@@ -742,18 +743,30 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       <section className="py-12 bg-white">
         <div className="max-w-2xl mx-auto px-6">
           <h2 className="text-3xl font-extrabold mb-3 text-center text-gray-900">Retailers &amp; Brewers</h2>
-          <p className="text-gray-500 mb-8 text-center text-lg">
-            Want to join the cause? Sign up below and we&apos;ll be in touch with next steps, including getting your logo on the site.
+          <p className="text-gray-500 text-center text-lg">
+            Want to join the cause?{" "}
+            {!showBizForm && bizResult !== "success" && (
+              <button
+                onClick={() => setShowBizForm(true)}
+                className="font-bold underline transition-colors"
+                style={{ color: "#F7A51C" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#DE9419")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#F7A51C")}
+              >
+                Click here
+              </button>
+            )}
           </p>
 
           {bizResult === "success" ? (
-            <div className="text-center rounded-2xl p-8" style={{ backgroundColor: "#FFF7ED" }}>
+            <div className="text-center rounded-2xl p-8 mt-6" style={{ backgroundColor: "#FFF7ED" }}>
               <div className="text-4xl mb-3">&#127867;</div>
               <h3 className="text-xl font-extrabold text-gray-900 mb-2">You&apos;re In!</h3>
               <p className="text-gray-600">Thanks for signing up. Bobby will be in touch soon with next steps.</p>
             </div>
-          ) : (
+          ) : showBizForm ? (
             <form
+              className="space-y-4 mt-8"
               onSubmit={async (e) => {
                 e.preventDefault();
                 if (!bizAgree) return;
@@ -782,7 +795,6 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                 }
                 setBizSubmitting(false);
               }}
-              className="space-y-4"
             >
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -895,7 +907,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                 </button>
               </div>
             </form>
-          )}
+          ) : null}
         </div>
       </section>
 
