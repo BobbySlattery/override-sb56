@@ -272,6 +272,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-16 md:h-20" />
             <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-16 md:h-20" />
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-16 md:h-20" />
+            <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-16 md:h-20" />
           </div>
         </div>
       </div>
@@ -734,6 +735,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/4Pack-Cans_FloatShoppe-LemonLimeRickey-5mg_2000px_4b0cf354-80a9-437c-86a0-4784619c136d.jpg" alt="Float Shoppe 4-Pack" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/Estazzi.jpeg" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/Estazzi2.png" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/SaucyProduct.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/SaucyProduct2.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
           </div>
         </div>
       </section>
