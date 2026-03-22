@@ -100,9 +100,9 @@ export default function Home() {
       (err) => {
         setLoading(false);
         if (err.code === err.PERMISSION_DENIED) {
-          setError("Location access was denied. Please allow location access in your browser settings.");
+          setError("Location access was denied. Try entering your address manually below instead.");
         } else {
-          setError("Could not determine your location. Please try again.");
+          setError("Could not determine your location. Try entering your address manually below instead.");
         }
       },
       { enableHighAccuracy: true, timeout: 15000 }
