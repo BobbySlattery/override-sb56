@@ -282,6 +282,78 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         </div>
       </header>
 
+      {/* Join the Fight - above What Happened */}
+      <section className="bg-white">
+        <div className="max-w-3xl mx-auto px-6 py-12">
+          {step === "locate" && (
+            <div className="text-center">
+              <h2 className="text-3xl font-extrabold mb-3 text-gray-900">
+                Join the Fight
+              </h2>
+              <p className="text-gray-500 mb-8 max-w-xl mx-auto text-lg">
+                We&apos;ll identify your Ohio State House Rep and Senator, then send them
+                — along with Speaker Huffman and Senate President McColley — a message
+                urging them to bring the override vote to the floor.
+              </p>
+
+              <button
+                onClick={handleGeolocate}
+                disabled={loading}
+                className="text-white font-bold px-10 py-4 rounded-full text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105"
+                style={{ backgroundColor: "#F7A51C" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#DE9419")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F7A51C")}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-3">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Finding your representatives...
+                  </span>
+                ) : (
+                  "Find My Representatives"
+                )}
+              </button>
+
+              <div className="mt-8 max-w-md mx-auto">
+                <p className="text-gray-400 text-sm mb-3">Or enter your Ohio address:</p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={manualAddress}
+                    onChange={(e) => setManualAddress(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") handleAddressLookup(); }}
+                    placeholder="123 Main St, Cincinnati, OH 45202"
+                    className={inputClass}
+                  />
+                  <button
+                    onClick={handleAddressLookup}
+                    disabled={loading}
+                    className="text-white font-bold px-6 py-3 rounded-xl transition-all disabled:opacity-50 flex-shrink-0"
+                    style={{ backgroundColor: "#F7A51C" }}
+                  >
+                    Go
+                  </button>
+                </div>
+              </div>
+
+              {error && (
+                <div className="mt-6 rounded-xl p-4 text-sm max-w-md mx-auto" style={{ backgroundColor: "#FEF2F2", color: "#A42325", border: "1px solid #FECACA" }}>
+                  {error}
+                </div>
+              )}
+
+              <p className="mt-6 text-gray-400 text-xs">
+                We use the U.S. Census Bureau to identify your Ohio state legislative
+                districts. Your data is not stored.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
       <WaveDivider color="#FFF7ED" />
 
       {/* Info Bar */}
