@@ -253,12 +253,12 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex justify-center items-center gap-6 md:gap-10 flex-wrap">
-            <img src="https://rhinegeist.com/wp-content/themes/wordplate/img/logo.svg" alt="Rhinegeist" className="h-16 md:h-20" />
-            <img src="https://www.greatlakesbrewing.com/wp-content/uploads/2026/03/glbc-logo-blue-large.svg" alt="Great Lakes Brewing" className="h-12 md:h-16" />
-            <img src="https://fiftywestbrew.com/wp-content/uploads/sites/90/2018/04/50W-Logo.png" alt="Fifty West" className="h-12 md:h-16" />
-            <img src="https://craftpeak-cooler-images.imgix.net/jackie-os-pub-brewery/Logo_Outline.png" alt="Jackie O's" className="h-12 md:h-16" />
-            <img src="https://artifactbeer.com/cdn/shop/files/UA2023-web-01_1000x.png" alt="Urban Artifact" className="h-12 md:h-16" />
-            <img src="https://static1.squarespace.com/static/51abeb0be4b08f6a770c06bf/t/682c9b3ab03574795392d2be/1747753786428/SeventhSon_Logo_Orange_Shield.png" alt="Seventh Son" className="h-12 md:h-16" />
+            <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-16 md:h-20" />
+            <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-12 md:h-16" />
+            <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-12 md:h-16" />
+            <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-12 md:h-16" />
+            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-12 md:h-16" />
+            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-12 md:h-16" />
           </div>
         </div>
       </div>
