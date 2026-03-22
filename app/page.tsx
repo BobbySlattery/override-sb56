@@ -270,6 +270,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-12 md:h-16" />
             <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-16 md:h-20" />
             <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-16 md:h-20" />
+            <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-16 md:h-20" />
+            <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-16 md:h-20" />
           </div>
         </div>
       </div>
