@@ -49,6 +49,7 @@ export default function Home() {
   const [bizResult, setBizResult] = useState<string | null>(null);
   const [showBizForm, setShowBizForm] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
+  const joinRef = useRef<HTMLElement>(null);
 
   // Scroll to results when step changes
   useEffect(() => {
@@ -63,6 +64,16 @@ export default function Home() {
   useEffect(() => {
     fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
   }, []);
+
+  // If URL has #action hash, scroll to Join the Fight and auto-trigger geolocation
+  useEffect(() => {
+    if (window.location.hash === "#action") {
+      setTimeout(() => {
+        joinRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        handleGeolocate();
+      }, 500);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doLookup = useCallback(async (lat: number, lng: number) => {
     setLoading(true);
@@ -303,7 +314,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       </header>
 
       {/* Join the Fight - above What Happened */}
-      <section className="bg-white">
+      <section className="bg-white" ref={joinRef}>
         <div className="max-w-3xl mx-auto px-6 py-12">
           {step === "locate" && (
             <div className="text-center">
