@@ -37,6 +37,7 @@ export default function Home() {
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
   const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 1000 });
+  const [showSimple, setShowSimple] = useState(false);
 
   // Fetch vote counts on load
   useEffect(() => {
@@ -288,6 +289,18 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <div className="max-w-3xl mx-auto px-6 py-8 text-center" style={{ color: "#92400E" }}>
           <h2 className="text-3xl font-extrabold mb-4" style={{ color: "#92400E" }}>What Happened?</h2>
           <p className="text-sm">Ohio lawmakers in the House and Senate did the work to create clear, common-sense rules for low-dose (5mg) THC beverages through Senate Bill 56. The bill established strict manufacturing oversight, required sales only to those 21 and older, and limited distribution to licensed establishments. It was a bipartisan effort shaped with input from regulators and industry leaders to bring an existing market into a safe, controlled system. However, when the bill reached Governor DeWine&apos;s desk, he used a line-item veto to remove all language in the bill pertaining to beverage provisions — overriding the intent of both the House and Senate. Now, the only way to restore what lawmakers already approved is for legislative leaders to bring an override vote to the floor.</p>
+          <button
+            onClick={() => setShowSimple(!showSimple)}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-colors"
+            style={{ backgroundColor: "#92400E", color: "#FFF7ED" }}
+          >
+            {showSimple ? "Show Full Explanation" : "Explain It Simply"}
+          </button>
+          {showSimple && (
+            <div className="mt-4 p-4 rounded-xl text-sm text-left" style={{ backgroundColor: "#FDEBD0", color: "#92400E" }}>
+              The people who make the rules in Ohio worked together to make a plan so THC drinks would be made safely, only sold to adults, and only in places that already follow rules. Everyone agreed on the plan. But when it got to the governor for his signature, he crossed out the part about the drinks. Now, the only way to fix it is for the rule-makers to vote again, but the two leaders of the rule-makers have to say &quot;yes&quot; before everyone else is allowed to vote.
+            </div>
+          )}
         </div>
       </div>
 
