@@ -711,7 +711,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
 
       {/* Product photo strip - both brands */}
       <section className="overflow-hidden py-8" style={{ backgroundColor: "#FFF7ED" }}>
-        <h3 className="text-center font-extrabold text-xl text-gray-900 mb-6">Ohio Products at Risk</h3>
+        <h3 className="text-center font-extrabold text-xl text-gray-900 mb-6">Ohio Made Products at Risk</h3>
         <div className="flex gap-4 justify-center items-center flex-wrap max-w-5xl mx-auto px-6">
           <img src="https://cdn.shopify.com/s/files/1/0664/4229/7422/files/5_1.jpg" alt="Sunflower Seltzers" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://drinkfuzzybones.com/cdn/shop/files/blood-orange-fuzzy-bones-5.png" alt="Fuzzy Bones Blood Orange" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
