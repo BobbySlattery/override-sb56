@@ -263,16 +263,20 @@ ${senderZip || "[Your Zip]"}, Ohio`;
       {/* Brewery logo strip */}
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="flex justify-center items-center gap-6 md:gap-10 flex-wrap">
+          {/* Top row — 5 logos */}
+          <div className="flex justify-center items-center gap-6 md:gap-10">
+            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-14 md:h-16" />
+            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-14 md:h-16" />
+            <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-14 md:h-16" />
+            <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-14 md:h-16" />
+            <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-14 md:h-16" />
+          </div>
+          {/* Bottom row — 4 center logos */}
+          <div className="flex justify-center items-center gap-6 md:gap-10 mt-4">
             <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-16 md:h-20" />
             <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-16 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-20 md:h-24" />
-            <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-12 md:h-16" />
-            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-16 md:h-20" />
-            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-16 md:h-20" />
-            <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-16 md:h-20" />
-            <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-16 md:h-20" />
-            <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-16 md:h-20" />
+            <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-14 md:h-18" />
           </div>
         </div>
       </div>
