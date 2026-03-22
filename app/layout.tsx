@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     description:
       "The votes exist. Leadership just needs to bring it to the floor. Contact your reps now.",
     type: "website",
+    images: [
+      {
+        url: "/images/worker-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Override the Veto — Protect Ohio's THC Beverage Industry",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Override the Veto — Protect Ohio's THC Beverage Industry",
+    description:
+      "The votes exist. Leadership just needs to bring it to the floor. Contact your reps now.",
+    images: ["/images/worker-1.jpg"],
   },
 };
 
