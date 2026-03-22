@@ -259,24 +259,24 @@ ${senderZip || "[Your Zip]"}, Ohio`;
   const inputClass = "w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-white";
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
+    <div className="min-h-screen bg-white overflow-x-hidden" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
       {/* Brewery logo strip */}
       <div className="bg-white py-5 border-b border-gray-100">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 md:px-6">
           {/* Top row — 5 logos */}
-          <div className="flex justify-center items-center gap-6 md:gap-10">
-            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-14 md:h-16" />
-            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-14 md:h-16" />
-            <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-14 md:h-16" />
-            <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-16 md:h-20" />
-            <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-16 md:h-20" />
+          <div className="flex justify-center items-center gap-3 md:gap-10">
+            <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-8 md:h-16" />
+            <img src="/images/logo-seventhson.png" alt="Seventh Son" className="h-8 md:h-16" />
+            <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-8 md:h-16" />
+            <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
+            <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-10 md:h-20" />
           </div>
           {/* Bottom row — 4 center logos */}
-          <div className="flex justify-center items-center gap-6 md:gap-10 mt-4">
-            <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-16 md:h-20" />
-            <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-16 md:h-20" />
-            <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-20 md:h-24" />
-            <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-14 md:h-18" />
+          <div className="flex justify-center items-center gap-4 md:gap-10 mt-3 md:mt-4">
+            <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-10 md:h-20" />
+            <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-10 md:h-20" />
+            <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-12 md:h-24" />
+            <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-10 md:h-18" />
           </div>
         </div>
       </div>
@@ -308,13 +308,24 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </p>
           </div>
 
-          {/* Brewery worker photos - seamless collage */}
-          <div className="relative max-w-4xl mx-auto" style={{ height: "280px" }}>
+          {/* Brewery worker photos - collage on desktop, swipeable carousel on mobile */}
+          {/* Desktop collage */}
+          <div className="hidden md:block relative max-w-4xl mx-auto" style={{ height: "280px" }}>
             <img src="/images/worker-1.jpg" alt="Brewery workers" className="absolute left-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
             <img src="/images/workers-2.jpg" alt="Brewery workers" className="absolute left-32 top-8 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
             <img src="/images/thankyou.jpg" alt="Brewery team" className="absolute left-1/2 -translate-x-1/2 top-0 w-64 h-48 object-cover rounded-2xl shadow-xl -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-20" style={{ objectPosition: "center 60%" }} />
             <img src="/images/keg.jpg" alt="Brewery worker with keg" className="absolute right-32 top-6 w-40 h-52 object-cover rounded-2xl shadow-xl rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30 z-10" />
             <img src="/images/workers-3.jpg" alt="Brewery workers" className="absolute right-0 top-2 w-40 h-52 object-cover rounded-2xl shadow-xl -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/30" />
+          </div>
+          {/* Mobile carousel */}
+          <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-6 px-6 pb-4" style={{ WebkitOverflowScrolling: "touch" }}>
+            <div className="flex gap-4 w-max">
+              <img src="/images/worker-1.jpg" alt="Brewery workers" className="snap-center w-64 h-44 object-cover rounded-2xl shadow-xl border-4 border-white/30 flex-shrink-0" />
+              <img src="/images/workers-2.jpg" alt="Brewery workers" className="snap-center w-64 h-44 object-cover rounded-2xl shadow-xl border-4 border-white/30 flex-shrink-0" />
+              <img src="/images/thankyou.jpg" alt="Brewery team" className="snap-center w-64 h-44 object-cover rounded-2xl shadow-xl border-4 border-white/30 flex-shrink-0" style={{ objectPosition: "center 60%" }} />
+              <img src="/images/keg.jpg" alt="Brewery worker with keg" className="snap-center w-64 h-44 object-cover rounded-2xl shadow-xl border-4 border-white/30 flex-shrink-0" />
+              <img src="/images/workers-3.jpg" alt="Brewery workers" className="snap-center w-64 h-44 object-cover rounded-2xl shadow-xl border-4 border-white/30 flex-shrink-0" />
+            </div>
           </div>
 
         </div>
