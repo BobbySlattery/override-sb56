@@ -611,6 +611,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <img src="/images/greenbuddy-blueberry.jpg" alt="Green Buddy Wild Blueberry THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="/images/JackieOs.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="/images/JackieOs2.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="/images/4Pack-Cans_FloatShoppe-LemonLimeRickey-5mg_2000px_4b0cf354-80a9-437c-86a0-4784619c136d.jpg" alt="Float Shoppe 4-Pack" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
         </div>
       </section>
 
