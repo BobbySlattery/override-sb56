@@ -609,6 +609,8 @@ ${senderZip || "[Your Zip]"}, Ohio`;
           <img src="/images/greenbuddy-peach.jpg" alt="Green Buddy Peach THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="https://soberish.com/cdn/shop/files/Untitled_design_37.png" alt="Coastalo Grape Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
           <img src="/images/greenbuddy-blueberry.jpg" alt="Green Buddy Wild Blueberry THC Soda" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="/images/JackieOs.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
+          <img src="/images/JackieOs2.jpg" alt="Jackie O's" className="w-36 h-36 object-cover rounded-2xl shadow-md" />
         </div>
       </section>
 
