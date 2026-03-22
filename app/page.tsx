@@ -38,6 +38,15 @@ export default function Home() {
   const [emailPreview, setEmailPreview] = useState(false);
   const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 1000 });
   const [showSimple, setShowSimple] = useState(false);
+  const [bizName, setBizName] = useState("");
+  const [bizLocation, setBizLocation] = useState("");
+  const [bizPhone, setBizPhone] = useState("");
+  const [bizContact, setBizContact] = useState("");
+  const [bizEmail, setBizEmail] = useState("");
+  const [bizType, setBizType] = useState("");
+  const [bizAgree, setBizAgree] = useState(false);
+  const [bizSubmitting, setBizSubmitting] = useState(false);
+  const [bizResult, setBizResult] = useState<string | null>(null);
 
   // Fetch vote counts on load
   useEffect(() => {
@@ -728,6 +737,167 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         </div>
       </section>
       <WaveDivider flip color="#F7A51C" />
+
+      {/* Business Signup */}
+      <section className="py-12 bg-white">
+        <div className="max-w-2xl mx-auto px-6">
+          <h2 className="text-3xl font-extrabold mb-3 text-center text-gray-900">Retailers &amp; Brewers</h2>
+          <p className="text-gray-500 mb-8 text-center text-lg">
+            Want to join the cause? Sign up below and we&apos;ll be in touch with next steps, including getting your logo on the site.
+          </p>
+
+          {bizResult === "success" ? (
+            <div className="text-center rounded-2xl p-8" style={{ backgroundColor: "#FFF7ED" }}>
+              <div className="text-4xl mb-3">&#127867;</div>
+              <h3 className="text-xl font-extrabold text-gray-900 mb-2">You&apos;re In!</h3>
+              <p className="text-gray-600">Thanks for signing up. Bobby will be in touch soon with next steps.</p>
+            </div>
+          ) : (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!bizAgree) return;
+                setBizSubmitting(true);
+                setBizResult(null);
+                try {
+                  const res = await fetch("/api/business-signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      businessName: bizName,
+                      location: bizLocation,
+                      phone: bizPhone,
+                      contactName: bizContact,
+                      contactEmail: bizEmail,
+                      businessType: bizType,
+                    }),
+                  });
+                  if (res.ok) {
+                    setBizResult("success");
+                  } else {
+                    setBizResult("error");
+                  }
+                } catch {
+                  setBizResult("error");
+                }
+                setBizSubmitting(false);
+              }}
+              className="space-y-4"
+            >
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Business Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={bizName}
+                    onChange={(e) => setBizName(e.target.value)}
+                    placeholder="e.g. Fifty West Brewing"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">I am a... *</label>
+                  <select
+                    required
+                    value={bizType}
+                    onChange={(e) => setBizType(e.target.value)}
+                    className={inputClass}
+                  >
+                    <option value="">Select one</option>
+                    <option value="Brewery">Brewery</option>
+                    <option value="Retailer">Retailer</option>
+                    <option value="Distributor">Distributor</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Location (City, State) *</label>
+                <input
+                  type="text"
+                  required
+                  value={bizLocation}
+                  onChange={(e) => setBizLocation(e.target.value)}
+                  placeholder="e.g. Cincinnati, OH"
+                  className={inputClass}
+                />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Contact Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={bizContact}
+                    onChange={(e) => setBizContact(e.target.value)}
+                    placeholder="Your name"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Contact Email *</label>
+                  <input
+                    type="email"
+                    required
+                    value={bizEmail}
+                    onChange={(e) => setBizEmail(e.target.value)}
+                    placeholder="you@business.com"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number *</label>
+                <input
+                  type="tel"
+                  required
+                  value={bizPhone}
+                  onChange={(e) => setBizPhone(e.target.value)}
+                  placeholder="(555) 555-5555"
+                  className={inputClass}
+                />
+              </div>
+
+              <div className="flex items-start gap-3 pt-2">
+                <input
+                  type="checkbox"
+                  id="bizAgree"
+                  checked={bizAgree}
+                  onChange={(e) => setBizAgree(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-gray-300"
+                  required
+                />
+                <label htmlFor="bizAgree" className="text-sm text-gray-600">
+                  I approve of my business being listed as a participant in the Override SB 56 campaign and consent to being contacted about next steps.
+                </label>
+              </div>
+
+              {bizResult === "error" && (
+                <div className="rounded-xl p-4 text-sm" style={{ backgroundColor: "#FEF2F2", color: "#A42325", border: "1px solid #FECACA" }}>
+                  Something went wrong. Please try again or email bobby@50westbrew.com directly.
+                </div>
+              )}
+
+              <div className="text-center pt-2">
+                <button
+                  type="submit"
+                  disabled={bizSubmitting || !bizAgree}
+                  className="text-white font-bold px-10 py-4 rounded-full text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105"
+                  style={{ backgroundColor: "#F7A51C" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#DE9419")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F7A51C")}
+                >
+                  {bizSubmitting ? "Submitting..." : "Join the Cause"}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400">
