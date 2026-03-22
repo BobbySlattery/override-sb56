@@ -254,7 +254,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex justify-center items-center gap-6 md:gap-10 flex-wrap">
             <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-16 md:h-20" />
-            <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-12 md:h-16" />
+            <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-16 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-16 md:h-20" />
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-12 md:h-16" />
             <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-12 md:h-16" />
