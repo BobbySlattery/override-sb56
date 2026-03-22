@@ -344,7 +344,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                     Finding your representatives...
                   </span>
                 ) : (
-                  "Find My Representatives"
+                  "Make My Voice Heard"
                 )}
               </button>
 
@@ -500,7 +500,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                   Finding your representatives...
                 </span>
               ) : (
-                "Find My Representatives"
+                "Make My Voice Heard"
               )}
             </button>
 
