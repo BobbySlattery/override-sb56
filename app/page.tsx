@@ -302,7 +302,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
               Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
               beverage provisions the legislature passed with bipartisan support.
-              <strong className="text-white block mt-2">
+              <strong className="text-white block mt-2 text-xl md:text-2xl">
                 The votes to override exist. Leadership needs to bring it to the floor.
               </strong>
             </p>
