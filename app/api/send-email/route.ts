@@ -90,7 +90,7 @@ TAKE IT A STEP FURTHER — CALL THEM
 
 A phone call makes an even bigger impact. The override vote only happens if leadership brings it to the floor. Call and leave a brief message urging them to act.
 
-Speaker of the House Matt Huffman: (614) 466-1482
+Speaker of the House Matt Huffman: (614) 466-6344
 Senate President Rob McColley: (614) 466-3819
 
 Sample message: "Hi, I'm calling to urge you to bring the SB 56 override vote to the floor. Ohio's craft beverage industry and hundreds of jobs depend on it. Thank you."
