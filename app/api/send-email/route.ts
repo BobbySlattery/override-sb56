@@ -166,8 +166,8 @@ export async function POST(request: NextRequest) {
           to: toAddresses,
           replyTo: senderEmail,
           subject: TESTING_MODE
-            ? `[TEST - intended for ${recipient.email}] Override Governor DeWine's Line-Item Veto of SB 56`
-            : "Override Governor DeWine's Line-Item Veto of SB 56 THC Beverage Provisions",
+            ? `[TEST - intended for ${recipient.email}] Constituent Request: Please Protect SB 56 Original Intent`
+            : "Constituent Request: Please Protect SB 56 Original Intent",
           text: body,
         });
         results.push({ email: recipient.email, status: "sent" });
