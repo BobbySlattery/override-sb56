@@ -90,18 +90,12 @@ ${recipientList}
 TAKE IT A STEP FURTHER — CALL THEM
 ════════════════════════════════════════
 
-A phone call makes an even bigger impact. Call and leave a brief message asking leadership to bring the override vote to the floor.
+A phone call makes an even bigger impact. The override vote only happens if leadership brings it to the floor. Call and leave a brief message urging them to act.
 
-Ohio House Switchboard: (614) 466-4857
-  → Ask for your Representative${houseDistrict ? ` (District ${houseDistrict})` : ""} by name
+Speaker of the House Matt Huffman: (614) 466-1482
+Senate President Rob McColley: (614) 466-3819
 
-Ohio Senate Switchboard: (614) 466-4900
-  → Ask for your Senator${senateDistrict ? ` (District ${senateDistrict})` : ""} by name
-
-Speaker Huffman's Office: (614) 466-1482
-Senate President McColley's Office: (614) 466-3819
-
-Sample message: "Hi, I'm calling to urge [Representative/Senator name] to support bringing the SB 56 override vote to the floor. Ohio's craft beverage industry and hundreds of jobs depend on it. Thank you."
+Sample message: "Hi, I'm calling to urge you to bring the SB 56 override vote to the floor. Ohio's craft beverage industry and hundreds of jobs depend on it. Thank you."
 
 ════════════════════════════════════════
 SPREAD THE WORD
