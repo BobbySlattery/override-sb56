@@ -290,23 +290,22 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             <div className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
               Ohio Senate Bill 56
             </div>
-            <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-4">
-              They Voted for Safety.
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+              Override the Veto.
               <br />
-              <span className="text-gray-900 text-xl md:text-2xl font-semibold">The House and Senate passed strict 21+ rules.</span>
-              <br /><br />
-              He Vetoed the Solution.
+              <span className="text-gray-900">Save Our Seltzers.</span>
               <br />
-              <span className="text-gray-900 text-xl md:text-2xl font-semibold">The Governor ignored the compromise.</span>
-              <br /><br />
-              Restore the Deal.
+              <span className="text-gray-900">Save Our Jobs.</span>
               <br />
-              <span className="text-gray-900 text-xl md:text-2xl font-semibold">Tell Leadership to uphold their original vote.</span>
-              <br /><br />
-              Don&apos;t Let the Veto Stand.
-              <br />
-              <span className="text-gray-900 text-xl md:text-2xl font-semibold">Keep Ohio-made products on the shelves.</span>
+              <span className="text-gray-900">Save Ohio.</span>
             </h1>
+            <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.9)" }}>
+              Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
+              beverage provisions the legislature passed with bipartisan support.
+              <strong className="text-white block mt-2">
+                The votes to override exist. Leadership just needs to bring it to the floor.
+              </strong>
+            </p>
           </div>
 
           {/* Brewery worker photos - seamless collage */}
