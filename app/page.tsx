@@ -303,7 +303,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
               Governor DeWine line-item vetoed 15 pages of SB 56 — killing the THC
               beverage provisions the legislature passed with bipartisan support.
               <strong className="text-white block mt-2">
-                The votes to override exist. Leadership just needs to bring it to the floor.
+                The votes to override exist. Leadership needs to bring it to the floor.
               </strong>
             </p>
           </div>
