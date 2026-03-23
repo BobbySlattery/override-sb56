@@ -37,7 +37,7 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
-  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 1000 });
+  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 2500 });
   const [showSimple, setShowSimple] = useState(false);
   const [bizName, setBizName] = useState("");
   const [bizLocation, setBizLocation] = useState("");
@@ -210,8 +210,6 @@ The Ohio General Assembly passed SB 56 with strong bipartisan support, including
 
 Ohio\u2019s craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
 
-The votes to override exist in both chambers. The only thing standing in the way is leadership\u2019s refusal to bring it to the floor.
-
 I respectfully ask that you publicly call for and support bringing the override vote to the floor.
 
 Sincerely,
@@ -236,8 +234,6 @@ This matters because:
 - Ohio\u2019s craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
 
 - The legislature \u2014 not the Governor \u2014 sets policy in Ohio. Allowing this overreach to stand sets a dangerous precedent for executive power over the legislative process.
-
-- The votes to override exist in both chambers. The only thing standing in the way is leadership\u2019s refusal to bring it to the floor.
 
 I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio\u2019s small businesses, workers, and the integrity of the legislative process depend on it.
 
