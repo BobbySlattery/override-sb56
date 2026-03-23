@@ -973,9 +973,14 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             This is a civic engagement tool. Your location is used solely to identify
             your state legislative districts and is not stored or shared.
           </p>
-          <p>
+          <p className="mb-3">
             District data provided by the U.S. Census Bureau. Legislator information
             from the Ohio General Assembly.
+          </p>
+          <p>
+            <a href="/privacy" className="text-orange-400 hover:underline">
+              Privacy Policy
+            </a>
           </p>
         </div>
       </footer>
