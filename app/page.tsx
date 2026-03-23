@@ -31,6 +31,7 @@ export default function Home() {
   const [senderName, setSenderName] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
   const [senderAddress, setSenderAddress] = useState("");
+  const [senderCity, setSenderCity] = useState("");
   const [senderZip, setSenderZip] = useState("");
   const [manualAddress, setManualAddress] = useState("");
   const [sending, setSending] = useState(false);
@@ -162,18 +163,19 @@ export default function Home() {
   };
 
   const handleSendEmails = async () => {
-    if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) {
+    if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderCity.trim() || !senderZip.trim()) {
       setError("Please fill in all fields.");
       return;
     }
     setSending(true);
     setError(null);
+    const fullAddress = `${senderAddress.trim()}, ${senderCity.trim()}`;
     const recipients = getRecipients().map((r) => ({ name: r.name, email: r.email, title: r.title }));
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim(), senderZip: senderZip.trim(), recipients, houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict }),
+        body: JSON.stringify({ senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddress, senderZip: senderZip.trim(), recipients, houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict }),
       });
       const data = await res.json();
       if (data.success) {
@@ -183,7 +185,7 @@ export default function Home() {
         fetch("/api/vote", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim() }),
+          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddress }),
         }).then(r => r.json()).then(() => {
           fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
         }).catch(() => {});
@@ -202,7 +204,7 @@ export default function Home() {
       : "As an Ohio resident";
     const body = encodeURIComponent(`Dear Ohio Legislators,
 
-${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderCity}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
 
 The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine\u2019s line-item veto stripped 15 pages and 17 sections from the bill \u2014 fundamentally changing what the legislature voted on.
 
@@ -215,7 +217,7 @@ I respectfully ask that you publicly call for and support bringing the override 
 Sincerely,
 ${senderName || "[Your Name]"}
 ${senderAddress || "[Your Address]"}
-${senderZip || "[Your Zip]"}, Ohio`);
+${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`);
     return `mailto:${toEmails}?subject=${subject}&body=${body}`;
   };
 
@@ -225,7 +227,7 @@ ${senderZip || "[Your Zip]"}, Ohio`);
       : "As an Ohio resident";
     return `Dear [Legislator Name],
 
-${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
+${districtLine}${senderAddress ? ` at ${senderAddress}, ${senderCity}, ${senderZip}` : ""}, I am writing to urge you to bring Governor DeWine\u2019s line-item veto of Senate Bill 56\u2019s THC beverage provisions to an override vote immediately.
 
 The Ohio General Assembly passed SB 56 with strong bipartisan support, including carefully crafted provisions that would have allowed the regulated sale of low-dose (5mg) THC-infused beverages through December 31, 2026. Governor DeWine\u2019s line-item veto stripped 15 pages and 17 sections from the bill \u2014 fundamentally changing what the legislature voted on. This was not a surgical line-item veto of an appropriation; it was a wholesale rewrite of policy that the legislature had deliberated and approved.
 
@@ -244,7 +246,7 @@ Thank you for your service to our state. I look forward to your response.
 Sincerely,
 ${senderName || "[Your Name]"}
 ${senderAddress || "[Your Address]"}
-${senderZip || "[Your Zip]"}, Ohio`;
+${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
   };
 
   // Wavy SVG divider
@@ -592,11 +594,17 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Home Address</label>
-                  <input type="text" value={senderAddress} onChange={(e) => setSenderAddress(e.target.value)} placeholder="123 Main St, Cincinnati" className={inputClass} />
+                  <input type="text" value={senderAddress} onChange={(e) => setSenderAddress(e.target.value)} placeholder="123 Main St" className={inputClass} />
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Zip Code</label>
-                  <input type="text" value={senderZip} onChange={(e) => setSenderZip(e.target.value)} placeholder="45202" className={inputClass} />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">City</label>
+                    <input type="text" value={senderCity} onChange={(e) => setSenderCity(e.target.value)} placeholder="Cincinnati" className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Zip Code</label>
+                    <input type="text" value={senderZip} onChange={(e) => setSenderZip(e.target.value)} placeholder="45202" className={inputClass} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -632,17 +640,18 @@ ${senderZip || "[Your Zip]"}, Ohio`;
                 {sending ? "Sending..." : "Send Emails Now"}
               </button>
               <a
-                href={(!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) ? "#" : getMailtoLink()}
+                href={(!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderCity.trim() || !senderZip.trim()) ? "#" : getMailtoLink()}
                 onClick={(e) => {
-                  if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderZip.trim()) {
+                  if (!senderName.trim() || !senderEmail.trim() || !senderAddress.trim() || !senderCity.trim() || !senderZip.trim()) {
                     e.preventDefault();
-                    setError("Please fill in your name, email, address, and zip code above.");
+                    setError("Please fill in your name, email, address, city, and zip code above.");
                     return;
                   }
+                  const fullAddr = `${senderAddress.trim()}, ${senderCity.trim()}`;
                   fetch("/api/vote", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: senderAddress.trim() }),
+                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddr }),
                   }).then(() => fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {})).catch(() => {});
                 }}
                 className="flex-1 font-bold px-6 py-4 rounded-full transition-all text-center text-lg hover:shadow-md"
@@ -707,7 +716,7 @@ ${senderZip || "[Your Zip]"}, Ohio`;
             </div>
 
             <button
-              onClick={() => { setStep("locate"); setLookupData(null); setSenderName(""); setSenderEmail(""); setSenderAddress(""); setSenderZip(""); setSendResult(null); setError(null); }}
+              onClick={() => { setStep("locate"); setLookupData(null); setSenderName(""); setSenderEmail(""); setSenderAddress(""); setSenderCity(""); setSenderZip(""); setSendResult(null); setError(null); }}
               className="text-sm text-gray-400 hover:text-gray-600"
             >
               Send more emails from a different location
