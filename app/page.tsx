@@ -83,7 +83,7 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) {
         if (data.error === "not_ohio") {
-          setError("This tool is for Ohio residents. Your location doesn\u2019t appear to be in Ohio.");
+          setError("This tool is for Ohio residents only. If you are accessing from outside Ohio, please enter your home address below and we\u2019ll connect you with your representative.");
         } else {
           setError(data.error || data.message || "Failed to look up your district.");
         }
