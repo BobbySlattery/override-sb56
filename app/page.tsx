@@ -66,12 +66,11 @@ export default function Home() {
     fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
   }, []);
 
-  // If URL has #action hash, scroll to Join the Fight and auto-trigger geolocation
+  // If URL has #action hash, scroll to Join the Fight section (no auto-geolocation)
   useEffect(() => {
     if (window.location.hash === "#action") {
       setTimeout(() => {
         joinRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        handleGeolocate();
       }, 500);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
