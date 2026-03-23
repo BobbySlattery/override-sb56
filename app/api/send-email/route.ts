@@ -99,7 +99,7 @@ Ohio Senate Switchboard: (614) 466-4900
   → Ask for your Senator${senateDistrict ? ` (District ${senateDistrict})` : ""} by name
 
 Speaker Huffman's Office: (614) 466-1482
-Senate President McColley's Office: (614) 466-4900
+Senate President McColley's Office: (614) 466-3819
 
 Sample message: "Hi, I'm calling to urge [Representative/Senator name] to support bringing the SB 56 override vote to the floor. Ohio's craft beverage industry and hundreds of jobs depend on it. Thank you."
 
