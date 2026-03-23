@@ -18,7 +18,7 @@ interface EmailPayload {
 // ═══════════════════════════════════════════════════════
 // TESTING MODE — set to false to send to real recipients
 // ═══════════════════════════════════════════════════════
-const TESTING_MODE = true;
+const TESTING_MODE = false;
 const TEST_RECIPIENTS = [
   "bobbyslattery@gmail.com",
   "bobby.slattery@fiftywestbrew.com",
@@ -53,8 +53,6 @@ This matters because:
 - Ohio's craft breweries, small businesses, and hemp beverage manufacturers invested in good faith based on the regulatory framework the legislature created. The veto has put hundreds of jobs and millions in investment at risk overnight.
 
 - The legislature — not the Governor — sets policy in Ohio. Allowing this overreach to stand sets a dangerous precedent for executive power over the legislative process.
-
-- The votes to override exist in both chambers. The only thing standing in the way is leadership's refusal to bring it to the floor.
 
 I respectfully ask that you publicly call for and support bringing the override vote to the floor of both the House and Senate. Ohio's small businesses, workers, and the integrity of the legislative process depend on it.
 
