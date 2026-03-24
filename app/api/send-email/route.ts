@@ -71,8 +71,6 @@ function buildConfirmationEmail(
   senateDistrict: number | null
 ): string {
   const siteUrl = "https://saveohiobevs.com";
-  const shareText = encodeURIComponent("Ohio's THC beverage industry needs your help. Contact your reps and demand leadership bring the override vote to the floor. It takes 2 minutes.");
-  const shareUrl = encodeURIComponent(siteUrl);
 
   const recipientList = recipients
     .map((r) => `  - ${r.title ? r.title + " " : ""}${r.name}`)
@@ -101,17 +99,13 @@ SPREAD THE WORD
 
 The more voices, the louder the message. Share with your friends and family:
 
-Facebook:
-https://www.facebook.com/sharer/sharer.php?u=${shareUrl}
+Share on Facebook: https://facebook.com/sharer/sharer.php?u=saveohiobevs.com
 
-X (Twitter):
-https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}
+Share on X: https://x.com/intent/post?text=Save+Ohio+beverages.+Contact+your+reps+in+2+min+at+saveohiobevs.com
 
-Instagram:
-Share saveohiobevs.com in your story or bio — screenshot the site and tag friends!
+Share on Instagram: Screenshot the site and share it in your story — tag friends!
 
-Email a friend:
-mailto:?subject=${encodeURIComponent("Help Save Ohio's THC Beverage Industry")}&body=${encodeURIComponent(`Hey — Ohio's THC beverage industry is under threat from Governor DeWine's veto. You can contact your reps in under 2 minutes at ${siteUrl}. Please take a look!`)}
+Forward this email or send a friend to saveohiobevs.com
 
 Together, we can make sure leadership hears us loud and clear.
 
