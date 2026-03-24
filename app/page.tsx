@@ -293,12 +293,13 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
             <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-10 md:h-20" />
           </div>
-          {/* Bottom row — 4 center logos */}
+          {/* Bottom row — 5 center logos */}
           <div className="flex justify-center items-center gap-4 md:gap-10 mt-3 md:mt-4">
             <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-10 md:h-20" />
             <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-10 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-12 md:h-24" />
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-10 md:h-18" />
+            <img src="/images/ThirdEyeLogo.jpg" alt="Third Eye Brewing" className="h-10 md:h-20" />
           </div>
         </div>
       </div>
@@ -447,7 +448,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
               {displayTotal.toLocaleString()}
             </div>
             <div className="text-xl md:text-2xl font-bold text-gray-700 mt-1">
-              Ohioans demanding the override vote
+              Ohioans demanding Senate President Rob McColley and Speaker of the House Matt Huffman bring the veto override to vote
             </div>
             <div className="text-sm text-gray-400 mt-1">Goal: {voteData.goal.toLocaleString()}</div>
           </div>
@@ -783,6 +784,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/Estazzi2.png" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/SaucyProduct.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/SaucyProduct2.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/3rdBev.jpg" alt="Third Eye Mystic Groove" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
           </div>
         </div>
       </section>
