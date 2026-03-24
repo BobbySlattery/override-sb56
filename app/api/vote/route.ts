@@ -45,7 +45,7 @@ function getRegion(houseDistrict: number | null): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { houseDistrict, senateDistrict, zip, senderName, senderEmail, senderAddress } = body;
+    const { houseDistrict, senateDistrict, zip, senderName, senderEmail, senderAddress, optIn } = body;
     const quadrant = getRegion(houseDistrict);
 
     const res = await fetch(`${SUPABASE_URL}/rest/v1/sb56_votes`, {
@@ -64,6 +64,7 @@ export async function POST(request: NextRequest) {
         sender_name: senderName || null,
         sender_email: senderEmail || null,
         sender_address: senderAddress || null,
+        opt_in: optIn !== undefined ? optIn : true,
       }),
     });
 

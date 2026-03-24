@@ -33,6 +33,7 @@ export default function Home() {
   const [senderAddress, setSenderAddress] = useState("");
   const [senderCity, setSenderCity] = useState("");
   const [senderZip, setSenderZip] = useState("");
+  const [optIn, setOptIn] = useState(true);
   const [manualAddress, setManualAddress] = useState("");
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
@@ -184,7 +185,7 @@ export default function Home() {
         fetch("/api/vote", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddress }),
+          body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddress, optIn }),
         }).then(r => r.json()).then(() => {
           fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
         }).catch(() => {});
@@ -622,6 +623,19 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
               </div>
             )}
 
+            {/* Opt-in checkbox */}
+            <div className="mb-6">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={optIn}
+                  onChange={(e) => setOptIn(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-gray-300 accent-orange-500"
+                />
+                <span className="text-sm text-gray-600">Keep me updated on the SaveOhioBevs campaign</span>
+              </label>
+            </div>
+
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <button
@@ -646,7 +660,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
                   fetch("/api/vote", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddr }),
+                    body: JSON.stringify({ houseDistrict: lookupData?.houseDistrict, senateDistrict: lookupData?.senateDistrict, zip: senderZip.trim(), senderName: senderName.trim(), senderEmail: senderEmail.trim(), senderAddress: fullAddr, optIn }),
                   }).then(() => fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {})).catch(() => {});
                 }}
                 className="flex-1 font-bold px-6 py-4 rounded-full transition-all text-center text-lg hover:shadow-md"
@@ -711,7 +725,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             </div>
 
             <button
-              onClick={() => { setStep("locate"); setLookupData(null); setSenderName(""); setSenderEmail(""); setSenderAddress(""); setSenderCity(""); setSenderZip(""); setSendResult(null); setError(null); }}
+              onClick={() => { setStep("locate"); setLookupData(null); setSenderName(""); setSenderEmail(""); setSenderAddress(""); setSenderCity(""); setSenderZip(""); setSendResult(null); setError(null); setOptIn(true); }}
               className="text-sm text-gray-400 hover:text-gray-600"
             >
               Send more emails from a different location
