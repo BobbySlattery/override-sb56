@@ -293,13 +293,12 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
             <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-10 md:h-20" />
           </div>
-          {/* Bottom row — 5 center logos */}
+          {/* Bottom row — 4 center logos */}
           <div className="flex justify-center items-center gap-4 md:gap-10 mt-3 md:mt-4">
             <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-10 md:h-20" />
             <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-10 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-12 md:h-24" />
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-10 md:h-18" />
-            <img src="/images/ThirdEyeLogo.jpg" alt="Third Eye Brewing" className="h-10 md:h-20" />
           </div>
         </div>
       </div>
