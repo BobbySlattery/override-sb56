@@ -62,10 +62,34 @@ export default function Home() {
     }
   }, [step]);
 
-  // Fetch vote counts on load
+  // Fetch vote counts on load and poll every 5 seconds
   useEffect(() => {
-    fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
+    const fetchVotes = () => fetch("/api/vote").then(r => r.json()).then(setVoteData).catch(() => {});
+    fetchVotes();
+    const interval = setInterval(fetchVotes, 5000);
+    return () => clearInterval(interval);
   }, []);
+
+  // Animated ticker: smoothly count up to the real total
+  const [displayTotal, setDisplayTotal] = useState(0);
+  useEffect(() => {
+    if (voteData.total === 0) return;
+    const start = displayTotal;
+    const end = voteData.total;
+    if (start === end) return;
+    const duration = 1200;
+    const startTime = performance.now();
+    let raf: number;
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayTotal(Math.round(start + (end - start) * eased));
+      if (progress < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [voteData.total]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // If URL has #action hash, scroll to Join the Fight section (no auto-geolocation)
   useEffect(() => {
@@ -420,7 +444,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
           {/* Big total number */}
           <div className="text-center mb-2">
             <div className="text-6xl md:text-8xl font-extrabold" style={{ color: "#F7A51C" }}>
-              {voteData.total.toLocaleString()}
+              {displayTotal.toLocaleString()}
             </div>
             <div className="text-xl md:text-2xl font-bold text-gray-700 mt-1">
               Ohioans demanding the override vote
@@ -434,7 +458,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
               <div
                 className="h-full rounded-full transition-all duration-1000"
                 style={{
-                  width: `${Math.min((voteData.total / voteData.goal) * 100, 100)}%`,
+                  width: `${Math.min((displayTotal / voteData.goal) * 100, 100)}%`,
                   background: "linear-gradient(90deg, #F7A51C, #E8941A)",
                 }}
               />
