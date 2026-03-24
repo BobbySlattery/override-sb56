@@ -290,7 +290,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
               Override the Veto.
               <br />
-              <span className="text-gray-900">Save Our Seltzers.</span>
+              <span className="text-gray-900">Save Our Beverages.</span>
               <br />
               <span className="text-gray-900">Save Our Jobs.</span>
               <br />
