@@ -35,11 +35,11 @@ async function getDistrictsFromCoords(lat: number, lng: number) {
   }
 
   const stateleg = result?.fields?.state_legislative_districts;
-  const houseDistrict = stateleg?.house?.district_number
-    ? parseInt(stateleg.house.district_number, 10)
+  const houseDistrict = stateleg?.house?.[0]?.district_number
+    ? parseInt(stateleg.house[0].district_number, 10)
     : null;
-  const senateDistrict = stateleg?.senate?.district_number
-    ? parseInt(stateleg.senate.district_number, 10)
+  const senateDistrict = stateleg?.senate?.[0]?.district_number
+    ? parseInt(stateleg.senate[0].district_number, 10)
     : null;
 
   return {
