@@ -30,6 +30,7 @@ function buildEmailBody(
   senderZip: string,
   recipientName: string,
   recipientTitle: string | undefined,
+  recipientEmail: string,
   houseDistrict: number | null,
   senateDistrict: number | null
 ): string {
@@ -61,7 +62,10 @@ Thank you for your service to our state. I look forward to your response.
 Sincerely,
 ${senderName}
 ${senderAddress}
-${senderZip}, Ohio`;
+${senderZip}, Ohio
+
+---
+This message was sent by a constituent via SaveOhioBevs.com, a civic engagement platform operated by Fifty West Brewing Company, 7668 Wooster Pike, Cincinnati, OH 45227. If you wish to stop receiving messages from this platform, please reply with "Unsubscribe" or visit https://saveohiobevs.com/unsubscribe?email=${encodeURIComponent(recipientEmail)}`;
 }
 
 function buildConfirmationEmail(
@@ -145,6 +149,7 @@ export async function POST(request: NextRequest) {
         senderZip,
         recipient.name,
         recipient.title,
+        recipient.email,
         houseDistrict,
         senateDistrict
       );
