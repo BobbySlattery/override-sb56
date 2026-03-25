@@ -285,9 +285,10 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
       {/* Brewery logo strip */}
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
-          {/* Top row — 6 logos */}
-          <div className="flex justify-center items-center gap-3 md:gap-10">
+          {/* Top row — 7 logos */}
+          <div className="flex justify-center items-center gap-3 md:gap-8">
             <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-8 md:h-16" />
+            <img src="/images/Rambling.png" alt="Rambling" className="h-8 md:h-16" />
             <img src="/images/ThirdEye.png" alt="Third Eye Brewing" className="h-8 md:h-16" />
             <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-8 md:h-16" />
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
@@ -296,7 +297,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
           </div>
           {/* Bottom row — 5 center logos */}
           <div className="flex justify-center items-center gap-4 md:gap-10 mt-3 md:mt-4">
-            <img src="/images/logo-rhinegeist.png" alt="Rhinegeist" className="h-10 md:h-20" />
+            <img src="/images/4Rhine.png" alt="Rhinegeist" className="h-10 md:h-20" />
             <img src="/images/logo-greatlakes.png" alt="Great Lakes Brewing" className="h-10 md:h-20" />
             <img src="/images/logo-fiftywest.png" alt="Fifty West" className="h-12 md:h-24" />
             <img src="/images/logo-jackios.png" alt="Jackie O's" className="h-10 md:h-18" />
