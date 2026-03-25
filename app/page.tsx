@@ -38,7 +38,7 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
-  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 10000 });
+  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
   const [showSimple, setShowSimple] = useState(false);
   const [bizName, setBizName] = useState("");
   const [bizLocation, setBizLocation] = useState("");
@@ -786,6 +786,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/SaucyProduct.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/SaucyProduct2.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/3rdBev.jpg" alt="Third Eye Mystic Groove" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
+            <img src="/images/ThirdEyeCans.jpg" alt="Third Eye Brewing Cans" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
           </div>
         </div>
       </section>

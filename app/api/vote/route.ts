@@ -121,10 +121,10 @@ export async function GET() {
     return NextResponse.json({
       total: totalCount,
       regions: regionCounts,
-      goal: 10000,
+      goal: 15000,
     });
   } catch (err) {
     console.error("Vote count error:", err);
-    return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 10000 });
+    return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
   }
 }
