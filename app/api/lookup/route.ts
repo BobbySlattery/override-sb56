@@ -1,72 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getHouseRep, getSenator, LEADERSHIP } from "@/data/legislators";
 
-// Census Bureau Geocoder - returns state legislative districts from coordinates
-// This is a free API with no key required
+const GEOCODIO_API_KEY = process.env.GEOCODIO_API_KEY;
+
 async function getDistrictsFromCoords(lat: number, lng: number) {
-  const url = new URL(
-    "https://geocoding.geo.census.gov/geocoder/geographies/coordinates"
-  );
-  url.searchParams.set("x", lng.toString());
-  url.searchParams.set("y", lat.toString());
-  url.searchParams.set("benchmark", "Public_AR_Current");
-  url.searchParams.set("vintage", "Current_Current");
-  url.searchParams.set("layers", "all");
-  url.searchParams.set("format", "json");
+  if (!GEOCODIO_API_KEY) {
+    throw new Error("GEOCODIO_API_KEY is not configured");
+  }
+
+  const url = new URL("https://api.geocod.io/v1.12/reverse");
+  url.searchParams.set("q", `${lat},${lng}`);
+  url.searchParams.set("fields", "stateleg");
+  url.searchParams.set("api_key", GEOCODIO_API_KEY);
 
   const res = await fetch(url.toString(), { signal: AbortSignal.timeout(15000) });
-  if (!res.ok) throw new Error("Census geocoder request failed");
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Geocodio reverse request failed: ${res.status} ${text}`);
+  }
 
   const data = await res.json();
-  const geographies = data?.result?.geographies;
+  const results = data?.results;
 
-  if (!geographies) {
-    throw new Error("No geographies returned from Census geocoder");
+  if (!results || results.length === 0) {
+    throw new Error("No results returned from Geocodio");
   }
 
-  // The Census geocoder uses year-prefixed layer names that change over time
-  // Search for the correct keys dynamically
-  const geoKeys = Object.keys(geographies);
+  const result = results[0];
+  const components = result?.address_components;
+  const state = components?.state;
 
-  const lowerKey = geoKeys.find(
-    (k) =>
-      k.includes("State Legislative Districts") && k.includes("Lower")
-  );
-  const upperKey = geoKeys.find(
-    (k) =>
-      k.includes("State Legislative Districts") && k.includes("Upper")
-  );
-  const stateKey = geoKeys.find(
-    (k) => k === "States" || k.includes("States")
-  );
-
-  const stateLower = lowerKey ? geographies[lowerKey]?.[0] : null;
-  const stateUpper = upperKey ? geographies[upperKey]?.[0] : null;
-  const state = stateKey ? geographies[stateKey]?.[0] : null;
-
-  // Check if we're in Ohio (FIPS code 39)
-  const stateCode = state?.STATE || stateLower?.STATE || stateUpper?.STATE;
-  if (stateCode && stateCode !== "39") {
-    return { error: "not_ohio", stateCode };
+  if (state && state !== "OH") {
+    return { error: "not_ohio", stateCode: state };
   }
 
-  const houseDistrict = stateLower
-    ? parseInt(stateLower.SLDLST || stateLower.BASENAME || "0", 10)
+  const stateleg = result?.fields?.state_legislative_districts;
+  const houseDistrict = stateleg?.house?.district_number
+    ? parseInt(stateleg.house.district_number, 10)
     : null;
-  const senateDistrict = stateUpper
-    ? parseInt(stateUpper.SLDUST || stateUpper.BASENAME || "0", 10)
+  const senateDistrict = stateleg?.senate?.district_number
+    ? parseInt(stateleg.senate.district_number, 10)
     : null;
 
   return {
     houseDistrict: houseDistrict && houseDistrict > 0 ? houseDistrict : null,
     senateDistrict: senateDistrict && senateDistrict > 0 ? senateDistrict : null,
-    debug: {
-      availableLayers: geoKeys,
-      lowerKey,
-      upperKey,
-      stateLower,
-      stateUpper,
-    },
   };
 }
 
@@ -96,10 +74,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { houseDistrict, senateDistrict, debug } = districts as {
+    const { houseDistrict, senateDistrict } = districts as {
       houseDistrict: number | null;
       senateDistrict: number | null;
-      debug: Record<string, unknown>;
     };
 
     const houseRep = houseDistrict ? getHouseRep(houseDistrict) : null;
@@ -111,7 +88,6 @@ export async function GET(request: NextRequest) {
       houseRep,
       senator,
       leadership: LEADERSHIP,
-      debug,
     });
   } catch (err) {
     console.error("Lookup error:", err);

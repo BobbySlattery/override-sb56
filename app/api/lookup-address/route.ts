@@ -1,71 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getHouseRep, getSenator, LEADERSHIP } from "@/data/legislators";
 
-// Census Bureau Geocoder - geocode an address then get districts
-async function geocodeAndLookup(address: string) {
-  // Step 1: Geocode the address to get coordinates
-  const geocodeUrl = new URL(
-    "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress"
-  );
-  geocodeUrl.searchParams.set("address", address);
-  geocodeUrl.searchParams.set("benchmark", "Public_AR_Current");
-  geocodeUrl.searchParams.set("vintage", "Current_Current");
-  geocodeUrl.searchParams.set("layers", "all");
-  geocodeUrl.searchParams.set("format", "json");
+const GEOCODIO_API_KEY = process.env.GEOCODIO_API_KEY;
 
-  const res = await fetch(geocodeUrl.toString(), {
-    signal: AbortSignal.timeout(15000),
-  });
-  if (!res.ok) throw new Error("Census geocoder request failed");
+async function geocodeAndLookup(address: string) {
+  if (!GEOCODIO_API_KEY) {
+    throw new Error("GEOCODIO_API_KEY is not configured");
+  }
+
+  const url = new URL("https://api.geocod.io/v1.12/geocode");
+  url.searchParams.set("q", address);
+  url.searchParams.set("fields", "stateleg");
+  url.searchParams.set("api_key", GEOCODIO_API_KEY);
+
+  const res = await fetch(url.toString(), { signal: AbortSignal.timeout(15000) });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Geocodio request failed: ${res.status} ${text}`);
+  }
 
   const data = await res.json();
-  const matches = data?.result?.addressMatches;
+  const results = data?.results;
 
-  if (!matches || matches.length === 0) {
+  if (!results || results.length === 0) {
     return { error: "no_match" };
   }
 
-  const match = matches[0];
-  const geographies = match?.geographies;
-  const stateCode = match?.addressComponents?.state;
+  const result = results[0];
+  const components = result?.address_components;
+  const state = components?.state;
 
-  if (stateCode !== "OH" && stateCode !== "39") {
-    // Check geography data too
-    const geoKeys = Object.keys(geographies || {});
-    const stateKey = geoKeys.find((k) => k.includes("States"));
-    const stateGeo = stateKey ? geographies[stateKey]?.[0] : null;
-    if (stateGeo?.STATE !== "39") {
-      return { error: "not_ohio" };
-    }
+  if (state && state !== "OH") {
+    return { error: "not_ohio" };
   }
 
-  if (!geographies) {
-    throw new Error("No geographies returned");
-  }
-
-  const geoKeys = Object.keys(geographies);
-  const lowerKey = geoKeys.find(
-    (k) => k.includes("State Legislative Districts") && k.includes("Lower")
-  );
-  const upperKey = geoKeys.find(
-    (k) => k.includes("State Legislative Districts") && k.includes("Upper")
-  );
-
-  const stateLower = lowerKey ? geographies[lowerKey]?.[0] : null;
-  const stateUpper = upperKey ? geographies[upperKey]?.[0] : null;
-
-  const houseDistrict = stateLower
-    ? parseInt(stateLower.SLDLST || stateLower.BASENAME || "0", 10)
+  const stateleg = result?.fields?.state_legislative_districts;
+  const houseDistrict = stateleg?.house?.district_number
+    ? parseInt(stateleg.house.district_number, 10)
     : null;
-  const senateDistrict = stateUpper
-    ? parseInt(stateUpper.SLDUST || stateUpper.BASENAME || "0", 10)
+  const senateDistrict = stateleg?.senate?.district_number
+    ? parseInt(stateleg.senate.district_number, 10)
     : null;
 
   return {
     houseDistrict: houseDistrict && houseDistrict > 0 ? houseDistrict : null,
-    senateDistrict:
-      senateDistrict && senateDistrict > 0 ? senateDistrict : null,
-    matchedAddress: match?.matchedAddress,
+    senateDistrict: senateDistrict && senateDistrict > 0 ? senateDistrict : null,
+    matchedAddress: result?.formatted_address,
   };
 }
 
@@ -81,7 +61,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Append ", Ohio" if not already present to help geocoding
     const searchAddress = address.toLowerCase().includes("ohio") || address.toLowerCase().includes("oh")
       ? address
       : `${address}, Ohio`;
