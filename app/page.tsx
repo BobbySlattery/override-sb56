@@ -785,7 +785,6 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/Estazzi2.png" alt="Estazzi" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/SaucyProduct.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/SaucyProduct2.JPG" alt="Saucy Brew Works" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
-            <img src="/images/3rdBev.jpg" alt="Third Eye Mystic Groove" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
             <img src="/images/ThirdEyeCans.jpg" alt="Third Eye Brewing Cans" className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-2xl shadow-md flex-shrink-0" />
           </div>
         </div>
