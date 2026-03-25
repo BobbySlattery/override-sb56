@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+const SUPABASE_URL = "https://psdjlhlqtlkeitmuszmb.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzZGpsaGxxdGxrZWl0bXVzem1iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzODUsImV4cCI6MjA4OTY2NTM4NX0.830QsU4rN2204zl9cOgK2tGD2oyj9f0zav8_v_Tn6HM";
+
 interface BusinessSignup {
   businessName: string;
   location: string;
@@ -22,23 +25,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      );
+    // Step 1: Always save to Supabase first (this is the critical data)
+    const supabaseRes = await fetch(`${SUPABASE_URL}/rest/v1/sb56_business_signups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify({
+        business_name: businessName,
+        location,
+        phone,
+        contact_name: contactName,
+        contact_email: contactEmail,
+        business_type: businessType,
+      }),
+    });
+
+    if (!supabaseRes.ok) {
+      console.error("Supabase insert failed:", await supabaseRes.text());
+      // Don't fail the whole request — still try to send the email
     }
 
-    const resend = new Resend(resendApiKey);
-    const fromEmail = process.env.FROM_EMAIL || "noreply@overridetheveto.com";
+    // Step 2: Send notification email to Bobby (non-blocking — signup is already saved)
+    let emailSent = false;
+    try {
+      const resendApiKey = process.env.RESEND_API_KEY;
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        const fromEmail = process.env.FROM_EMAIL || "noreply@overridetheveto.com";
 
-    await resend.emails.send({
-      from: `Override SB56 <${fromEmail}>`,
-      to: ["bobby@50westbrew.com"],
-      replyTo: contactEmail,
-      subject: `New Business Signup: ${businessName} (${businessType})`,
-      text: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
+        await resend.emails.send({
+          from: `Override SB56 <${fromEmail}>`,
+          to: ["bobby@50westbrew.com"],
+          replyTo: contactEmail,
+          subject: `New Business Signup: ${businessName} (${businessType})`,
+          text: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
 
 Business Name: ${businessName}
 Business Type: ${businessType}
@@ -48,11 +72,17 @@ Contact Name: ${contactName}
 Contact Email: ${contactEmail}
 
 They have agreed to participate. Reach out to get their logo and fill them in on next steps.`,
-    });
+        });
+        emailSent = true;
+      }
+    } catch (emailErr) {
+      console.error("Email notification failed (signup still saved):", emailErr);
+    }
 
     return NextResponse.json({
       success: true,
       message: "Signup submitted successfully",
+      emailSent,
     });
   } catch (err) {
     console.error("Business signup error:", err);
