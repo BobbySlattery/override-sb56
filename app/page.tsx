@@ -285,10 +285,11 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
       {/* Brewery logo strip */}
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
-          {/* Top row — 7 logos */}
-          <div className="flex justify-center items-center gap-3 md:gap-8">
+          {/* Top row — 8 logos */}
+          <div className="flex justify-center items-center gap-3 md:gap-7">
             <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-8 md:h-16" />
             <img src="/images/Rambling.png" alt="Rambling" className="h-8 md:h-16" />
+            <img src="/images/NineGiant.png" alt="Nine Giant" className="h-8 md:h-16" />
             <img src="/images/ThirdEye.png" alt="Third Eye Brewing" className="h-8 md:h-16" />
             <img src="/images/LandGrantLogo.png" alt="Land Grant" className="h-8 md:h-16" />
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
