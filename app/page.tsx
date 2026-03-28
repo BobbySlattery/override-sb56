@@ -285,7 +285,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
       {/* Brewery logo strip */}
       <div className="bg-white py-5 border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
-          {/* Top row — 8 logos */}
+          {/* Top row — 9 logos */}
           <div className="flex justify-center items-center gap-3 md:gap-7">
             <img src="/images/logo-urbanartifact.png" alt="Urban Artifact" className="h-8 md:h-16" />
             <img src="/images/Rambling.png" alt="Rambling" className="h-8 md:h-16" />
@@ -295,6 +295,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
             <img src="/images/WolfsRidge.png" alt="Wolf's Ridge" className="h-10 md:h-20" />
             <img src="/images/SaucyLogo.PNG" alt="Saucy Brew Works" className="h-10 md:h-20" />
             <img src="/images/MadTreeLogo.png" alt="MadTree Brewing" className="h-10 md:h-20" />
+            <img src="/images/JuniperLogo.png" alt="Juniper Brewing Co" className="h-7 md:h-14" />
           </div>
           {/* Bottom row — 5 center logos */}
           <div className="flex justify-center items-center gap-4 md:gap-10 mt-3 md:mt-4">
