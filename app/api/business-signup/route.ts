@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const SUPABASE_URL = "https://psdjlhlqtlkeitmuszmb.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzZGpsaGxxdGxrZWl0bXVzem1iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzODUsImV4cCI6MjA4OTY2NTM4NX0.830QsU4rN2204zl9cOgK2tGD2oyj9f0zav8_v_Tn6HM";
+const SUPABASE_URL = process.env.SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
 
 interface BusinessSignup {
   businessName: string;
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
         await resend.emails.send({
           from: `Override SB56 <${fromEmail}>`,
-          to: ["bobby@50westbrew.com"],
+          to: [process.env.NOTIFICATION_EMAIL || "bobby@50westbrew.com"],
           replyTo: contactEmail,
           subject: `New Business Signup: ${businessName} (${businessType})`,
           text: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!

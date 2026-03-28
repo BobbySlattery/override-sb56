@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SUPABASE_URL = "https://psdjlhlqtlkeitmuszmb.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzZGpsaGxxdGxrZWl0bXVzem1iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwODkzODUsImV4cCI6MjA4OTY2NTM4NX0.830QsU4rN2204zl9cOgK2tGD2oyj9f0zav8_v_Tn6HM";
+const SUPABASE_URL = process.env.SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
 
 // Map Ohio House districts to 5 regions based on the Ohio regional map
 // NW (Orange): Toledo, Lima, Findlay, Bowling Green area

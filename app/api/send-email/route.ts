@@ -16,13 +16,11 @@ interface EmailPayload {
 }
 
 // ═══════════════════════════════════════════════════════
-// TESTING MODE — set to false to send to real recipients
+// TESTING MODE — set TESTING_MODE=true in .env.local to
+// redirect emails to TEST_RECIPIENTS instead of real ones
 // ═══════════════════════════════════════════════════════
-const TESTING_MODE = false;
-const TEST_RECIPIENTS = [
-  "bobbyslattery@gmail.com",
-  "bobby.slattery@fiftywestbrew.com",
-];
+const TESTING_MODE = process.env.TESTING_MODE === "true";
+const TEST_RECIPIENTS = (process.env.TEST_RECIPIENTS || "").split(",").filter(Boolean);
 
 function buildEmailBody(
   senderName: string,
@@ -139,7 +137,7 @@ export async function POST(request: NextRequest) {
     }
 
     const resend = new Resend(resendApiKey);
-    const fromEmail = process.env.FROM_EMAIL || "bobby@50westbrew.com";
+    const fromEmail = process.env.FROM_EMAIL || "noreply@saveohiobevs.com";
     const results = [];
 
     for (const recipient of recipients) {
