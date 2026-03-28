@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-        <p className="text-gray-500 mb-8">Last updated: March 23, 2026</p>
+        <p className="text-gray-500 mb-8">Last updated: March 28, 2026</p>
 
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">Overview</h2>
@@ -89,9 +89,14 @@ export default function PrivacyPolicy() {
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">Data Retention</h2>
           <p className="text-gray-700 leading-relaxed">
-            We do not store your personal information after your emails have been
-            sent. Your name, email, and address are used in real time to send the
-            messages and are not saved to a database.
+            We securely store your name, email, and address in an encrypted
+            database to ensure reliable delivery of your messages to legislators.
+            If our email service experiences an outage, your information is
+            preserved so your emails can still be sent. If you opted in to future
+            updates, we may also use your contact information to notify you about
+            important developments related to SB 56 and the override effort. We
+            will not use your information for any unrelated purpose. You may
+            request deletion of your data at any time by contacting us.
           </p>
         </section>
 
@@ -108,10 +113,16 @@ export default function PrivacyPolicy() {
         <section className="mb-8">
           <h2 className="text-xl font-bold mb-3">Your Rights</h2>
           <p className="text-gray-700 leading-relaxed">
-            You may contact us at any time to request information about what data
-            we have associated with you, or to request its deletion. Since we do
-            not maintain a database of user information, in most cases there will
-            be no stored data to delete.
+            You may contact us at any time to request a copy of the data we hold
+            about you, or to request its deletion. We will fulfill deletion
+            requests within 30 days. To make a request, email us at{" "}
+            <a
+              href="mailto:bobby@50westbrew.com"
+              className="text-orange-600 hover:underline"
+            >
+              bobby@50westbrew.com
+            </a>
+            .
           </p>
         </section>
 
