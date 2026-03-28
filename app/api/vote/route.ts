@@ -86,45 +86,41 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET - Fetch vote counts
+// GET - Fetch vote counts via secure database function (no direct table reads)
 export async function GET() {
   try {
-    // Get total count
-    const totalRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/sb56_votes?select=id`,
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/get_vote_counts`,
       {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           apikey: SUPABASE_ANON_KEY,
           Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-          Prefer: "count=exact",
-          Range: "0-0",
         },
+        body: "{}",
       }
     );
 
-    const totalCount = parseInt(totalRes.headers.get("content-range")?.split("/")[1] || "0");
+    if (!res.ok) {
+      console.error("Vote count RPC error:", await res.text());
+      return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
+    }
 
-    // Get counts by region
-    const regions = ["NW", "NE", "Central", "SW", "SE"];
-    const regionCounts: Record<string, number> = {};
+    const data = await res.json();
 
-    for (const r of regions) {
-      const rRes = await fetch(
-        `${SUPABASE_URL}/rest/v1/sb56_votes?quadrant=eq.${r}&select=id`,
-        {
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            Prefer: "count=exact",
-            Range: "0-0",
-          },
-        }
-      );
-      regionCounts[r] = parseInt(rRes.headers.get("content-range")?.split("/")[1] || "0");
+    // The function returns [{quadrant, count}] rows
+    const regionCounts: Record<string, number> = { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 };
+    let total = 0;
+    for (const row of data) {
+      if (row.quadrant && row.quadrant in regionCounts) {
+        regionCounts[row.quadrant] = row.count;
+      }
+      total += row.count;
     }
 
     return NextResponse.json({
-      total: totalCount,
+      total,
       regions: regionCounts,
       goal: 15000,
     });
