@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getHouseRep, getSenator, LEADERSHIP } from "@/data/legislators";
+import { rateLimit } from "@/app/lib/rate-limit";
 
 const GEOCODIO_API_KEY = process.env.GEOCODIO_API_KEY;
 
@@ -49,6 +50,10 @@ async function getDistrictsFromCoords(lat: number, lng: number) {
 }
 
 export async function GET(request: NextRequest) {
+  // Rate limit: 30 lookups per IP per minute
+  const limited = rateLimit(request, "lookup", 30, 60 * 1000);
+  if (limited) return limited;
+
   const { searchParams } = new URL(request.url);
   const lat = parseFloat(searchParams.get("lat") || "");
   const lng = parseFloat(searchParams.get("lng") || "");

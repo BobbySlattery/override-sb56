@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { rateLimit } from "@/app/lib/rate-limit";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
@@ -14,6 +15,10 @@ interface BusinessSignup {
 }
 
 export async function POST(request: NextRequest) {
+  // Rate limit: 3 business signups per IP per hour
+  const limited = rateLimit(request, "business-signup", 3, 60 * 60 * 1000);
+  if (limited) return limited;
+
   try {
     const payload: BusinessSignup = await request.json();
     const { businessName, location, phone, contactName, contactEmail, businessType } = payload;

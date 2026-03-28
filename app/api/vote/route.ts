@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit } from "@/app/lib/rate-limit";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
@@ -43,6 +44,10 @@ function getRegion(houseDistrict: number | null): string {
 
 // POST - Record a vote
 export async function POST(request: NextRequest) {
+  // Rate limit: 10 votes per IP per hour
+  const limited = rateLimit(request, "vote", 10, 60 * 60 * 1000);
+  if (limited) return limited;
+
   try {
     const body = await request.json();
     const { houseDistrict, senateDistrict, zip, senderName, senderEmail, senderAddress, optIn } = body;

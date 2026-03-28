@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { rateLimit } from "@/app/lib/rate-limit";
 
 interface EmailPayload {
   senderName: string;
@@ -116,6 +117,10 @@ saveohiobevs.com`;
 }
 
 export async function POST(request: NextRequest) {
+  // Rate limit: 5 email submissions per IP per hour
+  const limited = rateLimit(request, "send-email", 5, 60 * 60 * 1000);
+  if (limited) return limited;
+
   try {
     const payload: EmailPayload = await request.json();
     const { senderName, senderEmail, senderAddress, senderZip, recipients, houseDistrict, senateDistrict } =
