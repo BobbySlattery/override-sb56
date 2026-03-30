@@ -412,7 +412,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
 
               <p className="mt-6 text-gray-400 text-xs">
                 We use the U.S. Census Bureau to identify your Ohio state legislative
-                districts. Your data is not stored.
+                districts. Your data is stored securely and used only for this campaign.
               </p>
             </div>
           )}
@@ -568,7 +568,7 @@ ${senderCity || "[Your City]"}, Ohio ${senderZip || "[Your Zip]"}`;
 
             <p className="mt-6 text-gray-400 text-xs">
               We use the U.S. Census Bureau to identify your Ohio state legislative
-              districts. Your data is not stored.
+              districts. Your data is stored securely and used only for this campaign.
             </p>
           </div>
         )}
