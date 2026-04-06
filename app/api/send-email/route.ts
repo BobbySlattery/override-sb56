@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { rateLimit } from "@/app/lib/rate-limit";
 
 interface EmailPayload {
@@ -133,15 +133,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
+    if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
       return NextResponse.json(
-        { error: "Email service not configured. Please set RESEND_API_KEY environment variable." },
+        { error: "Email service not configured. Please set AWS credentials." },
         { status: 500 }
       );
     }
 
-    const resend = new Resend(resendApiKey);
+    const ses = new SESv2Client({
+      region: process.env.AWS_SES_REGION || "us-east-2",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+      },
+    });
+
     const fromEmail = process.env.FROM_EMAIL || "noreply@saveohiobevs.com";
     const results = [];
 
@@ -157,19 +163,26 @@ export async function POST(request: NextRequest) {
         senateDistrict
       );
 
-      // In testing mode, send to test recipients instead of real ones
       const toAddresses = TESTING_MODE ? TEST_RECIPIENTS : [recipient.email];
 
       try {
-        await resend.emails.send({
-          from: `${senderName} via SaveOhioBevs <${fromEmail}>`,
-          to: toAddresses,
-          replyTo: senderEmail,
-          subject: TESTING_MODE
-            ? `[TEST - intended for ${recipient.email}] Constituent Request: Please Protect SB 56 Original Intent`
-            : "Constituent Request: Please Protect SB 56 Original Intent",
-          text: body,
-        });
+        await ses.send(
+          new SendEmailCommand({
+            FromEmailAddress: `${senderName} via SaveOhioBevs <${fromEmail}>`,
+            Destination: { ToAddresses: toAddresses },
+            ReplyToAddresses: [senderEmail],
+            Content: {
+              Simple: {
+                Subject: {
+                  Data: TESTING_MODE
+                    ? `[TEST - intended for ${recipient.email}] Constituent Request: Please Protect SB 56 Original Intent`
+                    : "Constituent Request: Please Protect SB 56 Original Intent",
+                },
+                Body: { Text: { Data: body } },
+              },
+            },
+          })
+        );
         results.push({ email: recipient.email, status: "sent" });
       } catch (err) {
         console.error(`Failed to send to ${recipient.email}:`, err);
@@ -186,15 +199,22 @@ export async function POST(request: NextRequest) {
         senateDistrict
       );
 
-      await resend.emails.send({
-        from: `SaveOhioBevs <${fromEmail}>`,
-        to: TESTING_MODE ? TEST_RECIPIENTS : [senderEmail],
-        subject: "You made your voice heard — here's how to do even more",
-        text: confirmationBody,
-      });
+      await ses.send(
+        new SendEmailCommand({
+          FromEmailAddress: `SaveOhioBevs <${fromEmail}>`,
+          Destination: {
+            ToAddresses: TESTING_MODE ? TEST_RECIPIENTS : [senderEmail],
+          },
+          Content: {
+            Simple: {
+              Subject: { Data: "You made your voice heard — here's how to do even more" },
+              Body: { Text: { Data: confirmationBody } },
+            },
+          },
+        })
+      );
     } catch (err) {
       console.error("Failed to send confirmation email:", err);
-      // Don't fail the whole request if confirmation fails
     }
 
     const sentCount = results.filter((r) => r.status === "sent").length;
