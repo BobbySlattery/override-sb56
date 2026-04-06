@@ -38,7 +38,7 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<string | null>(null);
   const [emailPreview, setEmailPreview] = useState(false);
-  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
+  const [voteData, setVoteData] = useState<{ total: number; regions: Record<string, number>; goal: number }>({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 20000 });
   const [showSimple, setShowSimple] = useState(false);
   const [bizName, setBizName] = useState("");
   const [bizLocation, setBizLocation] = useState("");

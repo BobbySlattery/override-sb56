@@ -104,7 +104,7 @@ export async function GET() {
 
     if (!res.ok) {
       console.error("Vote count RPC error:", await res.text());
-      return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
+      return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 20000 });
     }
 
     const data = await res.json();
@@ -122,10 +122,10 @@ export async function GET() {
     return NextResponse.json({
       total,
       regions: regionCounts,
-      goal: 15000,
+      goal: 20000,
     });
   } catch (err) {
     console.error("Vote count error:", err);
-    return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 15000 });
+    return NextResponse.json({ total: 0, regions: { NW: 0, NE: 0, Central: 0, SW: 0, SE: 0 }, goal: 20000 });
   }
 }
