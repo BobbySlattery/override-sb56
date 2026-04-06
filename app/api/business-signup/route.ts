@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { rateLimit } from "@/app/lib/rate-limit";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
@@ -57,17 +57,29 @@ export async function POST(request: NextRequest) {
     // Step 2: Send notification email to Bobby (non-blocking — signup is already saved)
     let emailSent = false;
     try {
-      const resendApiKey = process.env.RESEND_API_KEY;
-      if (resendApiKey) {
-        const resend = new Resend(resendApiKey);
-        const fromEmail = process.env.FROM_EMAIL || "noreply@overridetheveto.com";
+      if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+        const ses = new SESv2Client({
+          region: process.env.AWS_SES_REGION || "us-east-2",
+          credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+          },
+        });
+        const fromEmail = process.env.FROM_EMAIL || "noreply@saveohiobevs.com";
 
-        await resend.emails.send({
-          from: `Override SB56 <${fromEmail}>`,
-          to: [process.env.NOTIFICATION_EMAIL || "bobby@50westbrew.com"],
-          replyTo: contactEmail,
-          subject: `New Business Signup: ${businessName} (${businessType})`,
-          text: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
+        await ses.send(
+          new SendEmailCommand({
+            FromEmailAddress: `Override SB56 <${fromEmail}>`,
+            Destination: {
+              ToAddresses: [process.env.NOTIFICATION_EMAIL || "bobby@50westbrew.com"],
+            },
+            ReplyToAddresses: [contactEmail],
+            Content: {
+              Simple: {
+                Subject: { Data: `New Business Signup: ${businessName} (${businessType})` },
+                Body: {
+                  Text: {
+                    Data: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
 
 Business Name: ${businessName}
 Business Type: ${businessType}
@@ -77,7 +89,12 @@ Contact Name: ${contactName}
 Contact Email: ${contactEmail}
 
 They have agreed to participate. Reach out to get their logo and fill them in on next steps.`,
-        });
+                  },
+                },
+              },
+            },
+          })
+        );
         emailSent = true;
       }
     } catch (emailErr) {
