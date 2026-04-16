@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { rateLimit } from "@/app/lib/rate-limit";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
@@ -57,29 +56,22 @@ export async function POST(request: NextRequest) {
     // Step 2: Send notification email to Bobby (non-blocking — signup is already saved)
     let emailSent = false;
     try {
-      if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
-        const ses = new SESv2Client({
-          region: process.env.AWS_SES_REGION || "us-east-2",
-          credentials: {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-          },
-        });
+      if (process.env.BREVO_API_KEY) {
         const fromEmail = process.env.FROM_EMAIL || "noreply@saveohiobevs.com";
 
-        await ses.send(
-          new SendEmailCommand({
-            FromEmailAddress: `Override SB56 <${fromEmail}>`,
-            Destination: {
-              ToAddresses: [process.env.NOTIFICATION_EMAIL || "bobby@50westbrew.com"],
-            },
-            ReplyToAddresses: [contactEmail],
-            Content: {
-              Simple: {
-                Subject: { Data: `New Business Signup: ${businessName} (${businessType})` },
-                Body: {
-                  Text: {
-                    Data: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
+        const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "api-key": process.env.BREVO_API_KEY!,
+          },
+          body: JSON.stringify({
+            sender: { name: "Override SB56", email: fromEmail },
+            to: [{ email: process.env.NOTIFICATION_EMAIL || "bobby@50westbrew.com" }],
+            replyTo: { email: contactEmail },
+            subject: `New Business Signup: ${businessName} (${businessType})`,
+            textContent: `A new ${businessType.toLowerCase()} wants to join the Override SB 56 cause!
 
 Business Name: ${businessName}
 Business Type: ${businessType}
@@ -89,12 +81,14 @@ Contact Name: ${contactName}
 Contact Email: ${contactEmail}
 
 They have agreed to participate. Reach out to get their logo and fill them in on next steps.`,
-                  },
-                },
-              },
-            },
-          })
-        );
+          }),
+        });
+
+        if (!res.ok) {
+          const errBody = await res.text();
+          throw new Error(`Brevo API error ${res.status}: ${errBody}`);
+        }
+
         emailSent = true;
       }
     } catch (emailErr) {

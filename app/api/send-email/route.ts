@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { rateLimit } from "@/app/lib/rate-limit";
 
 interface EmailPayload {
@@ -22,6 +21,45 @@ interface EmailPayload {
 // ═══════════════════════════════════════════════════════
 const TESTING_MODE = process.env.TESTING_MODE === "true";
 const TEST_RECIPIENTS = (process.env.TEST_RECIPIENTS || "").split(",").filter(Boolean);
+
+async function sendBrevoEmail({
+  fromName,
+  fromEmail,
+  to,
+  replyTo,
+  subject,
+  textContent,
+}: {
+  fromName: string;
+  fromEmail: string;
+  to: { email: string; name?: string }[];
+  replyTo?: { email: string };
+  subject: string;
+  textContent: string;
+}) {
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "accept": "application/json",
+      "content-type": "application/json",
+      "api-key": process.env.BREVO_API_KEY!,
+    },
+    body: JSON.stringify({
+      sender: { name: fromName, email: fromEmail },
+      to,
+      ...(replyTo ? { replyTo } : {}),
+      subject,
+      textContent,
+    }),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Brevo API error ${res.status}: ${errBody}`);
+  }
+
+  return res.json();
+}
 
 function buildEmailBody(
   senderName: string,
@@ -133,20 +171,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+    if (!process.env.BREVO_API_KEY) {
       return NextResponse.json(
-        { error: "Email service not configured. Please set AWS credentials." },
+        { error: "Email service not configured. Please set BREVO_API_KEY." },
         { status: 500 }
       );
     }
-
-    const ses = new SESv2Client({
-      region: process.env.AWS_SES_REGION || "us-east-2",
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      },
-    });
 
     const fromEmail = process.env.FROM_EMAIL || "noreply@saveohiobevs.com";
     const results = [];
@@ -163,26 +193,21 @@ export async function POST(request: NextRequest) {
         senateDistrict
       );
 
-      const toAddresses = TESTING_MODE ? TEST_RECIPIENTS : [recipient.email];
+      const toAddresses = TESTING_MODE
+        ? TEST_RECIPIENTS.map((e) => ({ email: e }))
+        : [{ email: recipient.email }];
 
       try {
-        await ses.send(
-          new SendEmailCommand({
-            FromEmailAddress: `${senderName} via SaveOhioBevs <${fromEmail}>`,
-            Destination: { ToAddresses: toAddresses },
-            ReplyToAddresses: [senderEmail],
-            Content: {
-              Simple: {
-                Subject: {
-                  Data: TESTING_MODE
-                    ? `[TEST - intended for ${recipient.email}] Constituent Request: Please Protect SB 56 Original Intent`
-                    : "Constituent Request: Please Protect SB 56 Original Intent",
-                },
-                Body: { Text: { Data: body } },
-              },
-            },
-          })
-        );
+        await sendBrevoEmail({
+          fromName: `${senderName} via SaveOhioBevs`,
+          fromEmail,
+          to: toAddresses,
+          replyTo: { email: senderEmail },
+          subject: TESTING_MODE
+            ? `[TEST - intended for ${recipient.email}] Constituent Request: Please Protect SB 56 Original Intent`
+            : "Constituent Request: Please Protect SB 56 Original Intent",
+          textContent: body,
+        });
         results.push({ email: recipient.email, status: "sent" });
       } catch (err) {
         console.error(`Failed to send to ${recipient.email}:`, err);
@@ -199,20 +224,15 @@ export async function POST(request: NextRequest) {
         senateDistrict
       );
 
-      await ses.send(
-        new SendEmailCommand({
-          FromEmailAddress: `SaveOhioBevs <${fromEmail}>`,
-          Destination: {
-            ToAddresses: TESTING_MODE ? TEST_RECIPIENTS : [senderEmail],
-          },
-          Content: {
-            Simple: {
-              Subject: { Data: "You made your voice heard — here's how to do even more" },
-              Body: { Text: { Data: confirmationBody } },
-            },
-          },
-        })
-      );
+      await sendBrevoEmail({
+        fromName: "SaveOhioBevs",
+        fromEmail,
+        to: TESTING_MODE
+          ? TEST_RECIPIENTS.map((e) => ({ email: e }))
+          : [{ email: senderEmail }],
+        subject: "You made your voice heard — here's how to do even more",
+        textContent: confirmationBody,
+      });
     } catch (err) {
       console.error("Failed to send confirmation email:", err);
     }
